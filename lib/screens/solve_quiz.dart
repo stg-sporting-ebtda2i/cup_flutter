@@ -83,6 +83,11 @@ class _QuizPageState extends State<QuizPage> {
   Widget _buildQuestionsState(QuizzesProvider provider, HeaderProvider header) {
     Quiz quiz = provider.currentQuiz;
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.black,
+        toolbarHeight: 0,
+        elevation: 0,
+      ),
       body: Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(
@@ -228,6 +233,11 @@ class _QuizPageState extends State<QuizPage> {
 
   Widget _buildLoadingState() {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.black,
+        toolbarHeight: 0,
+        elevation: 0,
+      ),
       body: Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(
@@ -342,6 +352,11 @@ class _QuizPageState extends State<QuizPage> {
 
   Widget _buildErrorState() {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.black,
+        toolbarHeight: 0,
+        elevation: 0,
+      ),
       body: Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(

@@ -22,6 +22,11 @@ class _RequestedAttendanceState extends State<RequestedAttendance> {
   Widget build(BuildContext context) {
     return Consumer<AttendanceProvider>(builder: (context, provider, child) {
       return Scaffold(
+        appBar: AppBar(
+          backgroundColor: Colors.black,
+          toolbarHeight: 0,
+          elevation: 0,
+        ),
         floatingActionButton: Container(
           width: 60,
           height: 60,

@@ -67,6 +67,11 @@ class _MoreOptionsPageState extends State<MoreOptionsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.black,
+        toolbarHeight: 0,
+        elevation: 0,
+      ),
       body: Container(
         decoration: const BoxDecoration(
           image: DecorationImage(
