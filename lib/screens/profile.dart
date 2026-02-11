@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:piehme_cup_flutter/constants/app_colors.dart';
 import 'package:piehme_cup_flutter/dialogs/alert_dialog.dart';
 import 'package:piehme_cup_flutter/providers/buttons_visibility_provider.dart';
 import 'package:piehme_cup_flutter/providers/header_provider.dart';
@@ -166,7 +167,7 @@ class _MoreOptionsPageState extends State<MoreOptionsPage> {
                                             fit: BoxFit.cover),
                                         boxShadow: [
                                           BoxShadow(
-                                            color: Colors.yellow.shade200
+                                            color: AppColors.brandSecondary
                                                 .withAlpha(102),
                                             blurRadius: 30,
                                             offset: const Offset(3, 6),
@@ -303,12 +304,12 @@ class _MoreOptionsPageState extends State<MoreOptionsPage> {
                                 const SizedBox(height: 16),
                                 _buildAboutRow(
                                   icon: Icons.flag_rounded,
-                                  text: 'The Road to Bethlehem',
+                                  text: 'The Road to Golgotha',
                                 ),
                                 const SizedBox(height: 12),
                                 _buildAboutRow(
                                   icon: Icons.group_rounded,
-                                  text: 'خدمة ابتدائي - St. George Sporting',
+                                  text: 'St. George Church Sporting',
                                 ),
                                 const SizedBox(height: 12),
                                 _buildAboutRow(
@@ -318,7 +319,7 @@ class _MoreOptionsPageState extends State<MoreOptionsPage> {
                                 const SizedBox(height: 12),
                                 _buildAboutRow(
                                   icon: Icons.phone_android_rounded,
-                                  text: 'Version 3.0.0 • 2025',
+                                  text: 'Version 3.1.0 • 2026',
                                 ),
                               ],
                             ),
@@ -387,7 +388,7 @@ class _MoreOptionsPageState extends State<MoreOptionsPage> {
                             child: Column(
                               children: [
                                 Text(
-                                  'The Road to Bethlehem',
+                                  'The Road to Golgotha',
                                   style: TextStyle(
                                     color: Colors.white.withAlpha(204),
                                     fontSize: 14,

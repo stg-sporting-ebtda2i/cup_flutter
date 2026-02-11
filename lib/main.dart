@@ -21,14 +21,14 @@ import 'package:provider/provider.dart';
 import 'package:flutter/services.dart';
 
 void main() {
-  // SystemChrome.setSystemUIOverlayStyle(
-  //   const SystemUiOverlayStyle(
-  //     statusBarColor: Colors.black,
-  //     systemNavigationBarColor: Colors.black,
-  //     systemNavigationBarIconBrightness: Brightness.light,
-  //     statusBarIconBrightness: Brightness.light,
-  //   ),
-  // );
+  SystemChrome.setSystemUIOverlayStyle(
+    const SystemUiOverlayStyle(
+      statusBarColor: Colors.black,
+      systemNavigationBarColor: Colors.black,
+      systemNavigationBarIconBrightness: Brightness.light,
+      statusBarIconBrightness: Brightness.light,
+    ),
+  );
   runApp(
     MultiProvider(
         providers: [

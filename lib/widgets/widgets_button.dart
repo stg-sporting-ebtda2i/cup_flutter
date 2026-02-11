@@ -26,7 +26,7 @@ class CustomButton extends StatelessWidget {
           ),
           backgroundColor: AppColors.brand,
           disabledBackgroundColor: AppColors.brandSecondary,
-          foregroundColor: Colors.white,
+          foregroundColor: Colors.black,
           textStyle: TextStyle(
               fontSize: 20, fontWeight: FontWeight.w500, fontFamily: 'Dubai')),
       child: isLoading
@@ -37,7 +37,7 @@ class CustomButton extends StatelessWidget {
                 padding: EdgeInsets.all(2),
                 child: CircularProgressIndicator(
                   strokeWidth: 3,
-                  color: Colors.white,
+                  color: Colors.black,
                 ),
               ),
             )

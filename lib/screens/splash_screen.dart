@@ -59,7 +59,7 @@ class SplashScreenState extends State<SplashScreen> {
                       'Looking for the Road...',
                       textStyle: GoogleFonts.leagueSpartan(
                         fontSize: 24,
-                        color: Color.fromARGB(255, 44, 44, 44),
+                        color: Color.fromARGB(255, 217, 217, 217),
                         fontWeight: FontWeight.bold,
                       ),
                       speed: Duration(milliseconds: 200),
