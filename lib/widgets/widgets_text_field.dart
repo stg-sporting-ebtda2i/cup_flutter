@@ -43,7 +43,7 @@ class CustomTextField extends StatelessWidget {
         ),
         floatingLabelStyle: TextStyle(
           fontSize: 18,
-          color: AppColors.brand,
+          color: Colors.white,
             fontFamily: 'Dubai'
         ),
         labelText: hint,
