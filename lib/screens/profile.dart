@@ -34,36 +34,34 @@ class _MoreOptionsPageState extends State<MoreOptionsPage> {
   void _logout() {
     showDialog(
       context: context,
-      builder:
-          (context) => alertDialog(
-            context: context,
-            text: 'Are you sure that you want to logout?',
-            positiveBtnText: 'Logout',
-            positiveBtnAction: () {
-              context.read<HeaderProvider>().stop();
-              AuthService.logout();
-              Navigator.pop(context);
-              Navigator.pushReplacementNamed(context, AppRoutes.login);
-            },
-          ),
+      builder: (context) => alertDialog(
+        context: context,
+        text: 'Are you sure that you want to logout?',
+        positiveBtnText: 'Logout',
+        positiveBtnAction: () {
+          context.read<HeaderProvider>().stop();
+          AuthService.logout();
+          Navigator.pop(context);
+          Navigator.pushReplacementNamed(context, AppRoutes.login);
+        },
+      ),
     );
   }
 
   void _delete() {
     showDialog(
       context: context,
-      builder:
-          (context) => alertDialog(
-            context: context,
-            text: 'Are you sure that you want to delete your account?',
-            positiveBtnText: 'Delete',
-            positiveBtnAction: () async {
-              await AuthService.delete();
-              if (!context.mounted) return;
-              Navigator.pop(context);
-              Navigator.pushReplacementNamed(context, AppRoutes.login);
-            },
-          ),
+      builder: (context) => alertDialog(
+        context: context,
+        text: 'Are you sure that you want to delete your account?',
+        positiveBtnText: 'Delete',
+        positiveBtnAction: () async {
+          await AuthService.delete();
+          if (!context.mounted) return;
+          Navigator.pop(context);
+          Navigator.pushReplacementNamed(context, AppRoutes.login);
+        },
+      ),
     );
   }
 
@@ -184,73 +182,62 @@ class _MoreOptionsPageState extends State<MoreOptionsPage> {
                                         child: ClipOval(
                                           child:
                                               userProvider.user.imageUrl != null
-                                                  ? CachedNetworkImage(
-                                                    imageUrl:
-                                                        userProvider
-                                                            .user
-                                                            .imageUrl!,
-                                                    cacheKey:
-                                                        userProvider
-                                                            .user
-                                                            .imageKey,
-                                                    fit: BoxFit.cover,
-                                                    placeholder:
-                                                        (
-                                                          context,
-                                                          url,
-                                                        ) => Container(
-                                                          decoration:
-                                                              BoxDecoration(
+                                              ? CachedNetworkImage(
+                                                  imageUrl: userProvider
+                                                      .user
+                                                      .imageUrl!,
+                                                  cacheKey: userProvider
+                                                      .user
+                                                      .imageKey,
+                                                  fit: BoxFit.cover,
+                                                  placeholder: (context, url) =>
+                                                      Container(
+                                                        decoration:
+                                                            BoxDecoration(
+                                                              color: Colors
+                                                                  .grey[800],
+                                                              shape: BoxShape
+                                                                  .circle,
+                                                            ),
+                                                        child: const Center(
+                                                          child:
+                                                              CircularProgressIndicator(
                                                                 color:
-                                                                    Colors
-                                                                        .grey[800],
-                                                                shape:
-                                                                    BoxShape
-                                                                        .circle,
+                                                                    Colors.blue,
                                                               ),
-                                                          child: const Center(
-                                                            child:
-                                                                CircularProgressIndicator(
-                                                                  color:
-                                                                      Colors
-                                                                          .blue,
-                                                                ),
-                                                          ),
                                                         ),
-                                                    errorWidget:
-                                                        (
-                                                          context,
-                                                          url,
-                                                          error,
-                                                        ) => Container(
-                                                          decoration:
-                                                              BoxDecoration(
-                                                                color:
-                                                                    Colors
-                                                                        .grey[800],
-                                                                shape:
-                                                                    BoxShape
-                                                                        .circle,
-                                                              ),
-                                                          child: const Icon(
-                                                            Icons
-                                                                .person_rounded,
-                                                            color: Colors.white,
-                                                            size: 40,
-                                                          ),
+                                                      ),
+                                                  errorWidget:
+                                                      (
+                                                        context,
+                                                        url,
+                                                        error,
+                                                      ) => Container(
+                                                        decoration:
+                                                            BoxDecoration(
+                                                              color: Colors
+                                                                  .grey[800],
+                                                              shape: BoxShape
+                                                                  .circle,
+                                                            ),
+                                                        child: const Icon(
+                                                          Icons.person_rounded,
+                                                          color: Colors.white,
+                                                          size: 40,
                                                         ),
-                                                  )
-                                                  : Container(
-                                                    decoration: BoxDecoration(
-                                                      color: Colors.grey[800],
-                                                      shape: BoxShape.circle,
-                                                    ),
-                                                    child: const Icon(
-                                                      Icons.person_rounded,
-                                                      color: Colors.white,
-                                                      size: 40,
-                                                    ),
+                                                      ),
+                                                )
+                                              : Container(
+                                                  decoration: BoxDecoration(
+                                                    color: Colors.grey[800],
+                                                    shape: BoxShape.circle,
                                                   ),
+                                                  child: const Icon(
+                                                    Icons.person_rounded,
+                                                    color: Colors.white,
+                                                    size: 40,
+                                                  ),
+                                                ),
                                         ),
                                       ),
                                     ),
