@@ -17,6 +17,11 @@ class LineupPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.black,
+        toolbarHeight: 0,
+        elevation: 0,
+      ),
       body: userLineup
           ? Consumer<LineupProvider>(
               builder: (context, provider, child) {
@@ -41,18 +46,19 @@ class LineupPage extends StatelessWidget {
         ),
       ),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           if (!userLineup)
-            SafeArea(
-              child: Padding(
-                padding: const EdgeInsets.all(4),
-                child: Text(
-                  "${provider.user.name}'s Lineup",
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 12,
-                    fontWeight: FontWeight.bold,
-                  ),
+            Container(
+              color: Colors.black87,
+              padding: const EdgeInsets.all(4),
+              child: Text(
+                "${provider.user.name}'s Lineup",
+                textAlign: TextAlign.center,
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 12,
+                  fontWeight: FontWeight.bold,
                 ),
               ),
             ),

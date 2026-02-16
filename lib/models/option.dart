@@ -17,7 +17,7 @@ class Option {
   static Option fromJson(Map<String, dynamic> json) {
     return Option(
       id: json['id'],
-      name: utf8.decode(json['name'].codeUnits),
+      name: json['name'],
       picture: json['picture'],
       order: json['order'],
     );

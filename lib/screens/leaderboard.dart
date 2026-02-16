@@ -22,94 +22,101 @@ class _LeaderboardState extends State<Leaderboard> {
     return Consumer2<LeaderboardProvider, UserProvider>(
         builder: (context, provider, userProvider, child) {
       return Scaffold(
+          appBar: AppBar(
+            backgroundColor: Colors.black,
+            toolbarHeight: 0,
+            elevation: 0,
+          ),
           body: Container(
-        decoration: BoxDecoration(
-            image: DecorationImage(
-          fit: BoxFit.cover,
-          image: AssetImage('assets/backgrounds/leaderboard_background.png'),
-        )),
-        child: Column(
-          children: [
-            SafeArea(
-              child: Container(
-                padding: EdgeInsets.symmetric(vertical: 26),
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                    colors: [
-                      Colors.black87,
-                      Colors.black45,
-                      Colors.transparent,
-                    ],
-                  ),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        'Leaderboard',
-                        style: const TextStyle(
-                          fontSize: 23,
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                        ),
+            decoration: BoxDecoration(
+                image: DecorationImage(
+              fit: BoxFit.cover,
+              image:
+                  AssetImage('assets/backgrounds/leaderboard_background.png'),
+            )),
+            child: Column(
+              children: [
+                SafeArea(
+                  child: Container(
+                    padding: EdgeInsets.symmetric(vertical: 26),
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter,
+                        colors: [
+                          Colors.black87,
+                          Colors.black45,
+                          Colors.transparent,
+                        ],
                       ),
-                      Header(),
-                    ],
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            'Leaderboard',
+                            style: const TextStyle(
+                              fontSize: 23,
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          Header(),
+                        ],
+                      ),
+                    ),
                   ),
                 ),
-              ),
-            ),
-            Expanded(
-              child: Builder(
-                builder: (context) {
-                  if (provider.isLoading && provider.leaderboard.isEmpty) {
-                    return LoadingState(
-                        iconData: Icons.leaderboard_rounded,
-                        title: "Loading Leaderboard...",
-                        subtitle: 'Getting the latest rankings');
-                  }
-                  return RefreshIndicator(
-                    onRefresh: () =>
-                        context.read<LeaderboardProvider>().loadLeaderboard(),
-                    color: Colors.black,
-                    backgroundColor: AppColors.brand,
-                    child: provider.leaderboard.isEmpty
-                        ? CustomScrollView(
-                            slivers: [
-                              SliverToBoxAdapter(
-                                child: EmptyState(
-                                    iconData: Icons.leaderboard_rounded,
-                                    title: 'No Rankings Yet',
-                                    subtitle:
-                                        'Take the first spot on the podium'),
+                Expanded(
+                  child: Builder(
+                    builder: (context) {
+                      if (provider.isLoading && provider.leaderboard.isEmpty) {
+                        return LoadingState(
+                            iconData: Icons.leaderboard_rounded,
+                            title: "Loading Leaderboard...",
+                            subtitle: 'Getting the latest rankings');
+                      }
+                      return RefreshIndicator(
+                        onRefresh: () => context
+                            .read<LeaderboardProvider>()
+                            .loadLeaderboard(),
+                        color: Colors.black,
+                        backgroundColor: AppColors.brand,
+                        child: provider.leaderboard.isEmpty
+                            ? CustomScrollView(
+                                slivers: [
+                                  SliverToBoxAdapter(
+                                    child: EmptyState(
+                                        iconData: Icons.leaderboard_rounded,
+                                        title: 'No Rankings Yet',
+                                        subtitle:
+                                            'Take the first spot on the podium'),
+                                  )
+                                ],
                               )
-                            ],
-                          )
-                        : ListView.builder(
-                            padding: EdgeInsets.zero,
-                            itemCount: provider.leaderboard.length,
-                            itemBuilder: (context, index) {
-                              return AnimatedListItem(
-                                index: index,
-                                child: LeaderboardListItem(
-                                    current: userProvider.user.id ==
-                                        provider.leaderboard[index].id,
-                                    user: provider.leaderboard[index],
-                                    index: index + 1),
-                              );
-                            },
-                          ),
-                  );
-                },
-              ),
+                            : ListView.builder(
+                                padding: EdgeInsets.zero,
+                                itemCount: provider.leaderboard.length,
+                                itemBuilder: (context, index) {
+                                  return AnimatedListItem(
+                                    index: index,
+                                    child: LeaderboardListItem(
+                                        current: userProvider.user.id ==
+                                            provider.leaderboard[index].id,
+                                        user: provider.leaderboard[index],
+                                        index: index + 1),
+                                  );
+                                },
+                              ),
+                      );
+                    },
+                  ),
+                ),
+              ],
             ),
-          ],
-        ),
-      ));
+          ));
     });
   }
 }

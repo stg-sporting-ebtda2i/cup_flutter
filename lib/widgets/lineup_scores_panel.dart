@@ -111,6 +111,7 @@ class StarRatingProgress extends StatelessWidget {
   final double starSize;
   final Color filledColor;
   final Color emptyColor;
+  final bool expand;
 
   const StarRatingProgress({
     super.key,
@@ -120,27 +121,43 @@ class StarRatingProgress extends StatelessWidget {
     this.starSize = 20.0,
     this.filledColor = Colors.amber,
     this.emptyColor = Colors.grey,
+    this.expand = false,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisSize: MainAxisSize.min,
-      children: List.generate(starCount, (index) {
-        double starValue = index + 1.0;
-        bool isFilled = starValue <= rating;
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        // Calculate available width per star
+        double availableWidth = constraints.maxWidth;
+        double starWidth = starSize;
 
-        return isFilled ?
-        Icon(
-          Icons.star_rate_rounded,
-          size: starSize,
-          color: filledColor,
-        ) : Icon(
-          Icons.star_rate_rounded,
-          size: starSize,
-          color: emptyColor,
+        while (expand && starCount * starWidth < availableWidth-25) {
+          starWidth += 5;
+        }
+
+        // If not enough space, reduce star size
+        if (starCount * starWidth > availableWidth) {
+          starWidth = (availableWidth - ((starCount - 1) * 2.0)) / starCount;
+        }
+
+        return Row(
+          mainAxisSize: MainAxisSize.min,
+          children: List.generate(starCount, (index) {
+            double starValue = index + 1.0;
+            bool isFilled = starValue <= rating;
+
+            return Padding(
+              padding: EdgeInsets.only(right: index < starCount - 1 ? 2.0 : 0),
+              child: Icon(
+                Icons.star_rate_rounded,
+                size: starWidth.clamp(10.0, starSize), // Min 10, max starSize
+                color: isFilled ? filledColor : emptyColor,
+              ),
+            );
+          }),
         );
-      }),
+      },
     );
   }
 }

@@ -8,6 +8,7 @@ import 'package:piehme_cup_flutter/services/navigation_service.dart';
 
 class Request {
   static const String baseUrl = 'https://piehme.stgsporting.com';
+  // static const String baseUrl = 'http://10.0.2.2:9000';
   // static const String baseUrl = 'http://192.168.1.3:9000';
 
   Uri uri;

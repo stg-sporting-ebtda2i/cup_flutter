@@ -36,7 +36,7 @@ class Quiz {
 
     return Quiz(
       id: json['id'],
-      name: utf8.decode(json['name'].codeUnits),
+      name: json['name'],
       slug: json['slug'],
       coins: json['coins'],
       isSolved: json['isSolved'],
