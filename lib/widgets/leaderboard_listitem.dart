@@ -158,7 +158,7 @@ class LeaderboardListItem extends StatelessWidget {
               children: [
                 Expanded(
                   child: StarRatingProgress(
-                      rating: (user.lineupRating / 100 * 5).round(), starSize: 18),
+                      rating: (user.lineupRating / 100 * 5).round(), starSize: 18, expand: true,),
                 ),
                 SizedBox(width: 8),
                 Container(

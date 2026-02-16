@@ -45,7 +45,7 @@ class Question {
   static Question fromJson(Map<String, dynamic> json) {
     return Question(
       id: json['id'],
-      title: utf8.decode(json['title'].codeUnits),
+      title: json['title'],
       picture: json['picture'],
       coins: json['coins'],
       type: QuestionType.fromString(json['type']),

@@ -21,6 +21,11 @@ class _ShowQuizzesPageState extends State<ShowQuizzesPage> {
     return Consumer<QuizzesProvider>(
       builder: (context, provider, child) {
         return Scaffold(
+          appBar: AppBar(
+            backgroundColor: Colors.black,
+            toolbarHeight: 0,
+            elevation: 0,
+          ),
           body: Container(
             decoration: const BoxDecoration(
               gradient: LinearGradient(colors: [
