@@ -34,34 +34,36 @@ class _MoreOptionsPageState extends State<MoreOptionsPage> {
   void _logout() {
     showDialog(
       context: context,
-      builder: (context) => alertDialog(
-        context: context,
-        text: 'Are you sure that you want to logout?',
-        positiveBtnText: 'Logout',
-        positiveBtnAction: () {
-          context.read<HeaderProvider>().stop();
-          AuthService.logout();
-          Navigator.pop(context);
-          Navigator.pushReplacementNamed(context, AppRoutes.login);
-        },
-      ),
+      builder:
+          (context) => alertDialog(
+            context: context,
+            text: 'Are you sure that you want to logout?',
+            positiveBtnText: 'Logout',
+            positiveBtnAction: () {
+              context.read<HeaderProvider>().stop();
+              AuthService.logout();
+              Navigator.pop(context);
+              Navigator.pushReplacementNamed(context, AppRoutes.login);
+            },
+          ),
     );
   }
 
   void _delete() {
     showDialog(
       context: context,
-      builder: (context) => alertDialog(
-        context: context,
-        text: 'Are you sure that you want to delete your account?',
-        positiveBtnText: 'Delete',
-        positiveBtnAction: () async {
-          await AuthService.delete();
-          if (!context.mounted) return;
-          Navigator.pop(context);
-          Navigator.pushReplacementNamed(context, AppRoutes.login);
-        },
-      ),
+      builder:
+          (context) => alertDialog(
+            context: context,
+            text: 'Are you sure that you want to delete your account?',
+            positiveBtnText: 'Delete',
+            positiveBtnAction: () async {
+              await AuthService.delete();
+              if (!context.mounted) return;
+              Navigator.pop(context);
+              Navigator.pushReplacementNamed(context, AppRoutes.login);
+            },
+          ),
     );
   }
 
@@ -76,8 +78,9 @@ class _MoreOptionsPageState extends State<MoreOptionsPage> {
       body: Container(
         decoration: const BoxDecoration(
           image: DecorationImage(
-              image: AssetImage('assets/backgrounds/profile_background.png'),
-              fit: BoxFit.cover),
+            image: AssetImage('assets/backgrounds/profile_background.png'),
+            fit: BoxFit.cover,
+          ),
         ),
         child: Column(
           children: [
@@ -162,9 +165,11 @@ class _MoreOptionsPageState extends State<MoreOptionsPage> {
                                       decoration: BoxDecoration(
                                         shape: BoxShape.circle,
                                         image: DecorationImage(
-                                            image: AssetImage(
-                                                'assets/backgrounds/profile_background.png'),
-                                            fit: BoxFit.cover),
+                                          image: AssetImage(
+                                            'assets/backgrounds/profile_background.png',
+                                          ),
+                                          fit: BoxFit.cover,
+                                        ),
                                         boxShadow: [
                                           BoxShadow(
                                             color: AppColors.brandSecondary
@@ -177,30 +182,65 @@ class _MoreOptionsPageState extends State<MoreOptionsPage> {
                                       child: Padding(
                                         padding: const EdgeInsets.all(3.0),
                                         child: ClipOval(
-                                          child: userProvider.user.imageUrl !=
-                                                  null
-                                              ? CachedNetworkImage(
-                                                  imageUrl:
-                                                      userProvider.user.imageUrl!,
-                                                  cacheKey:
-                                                      userProvider.user.imageKey,
-                                                  fit: BoxFit.cover,
-                                                  placeholder: (context, url) =>
-                                                      Container(
-                                                    decoration: BoxDecoration(
-                                                      color: Colors.grey[800],
-                                                      shape: BoxShape.circle,
-                                                    ),
-                                                    child: const Center(
-                                                      child:
-                                                          CircularProgressIndicator(
-                                                        color: Colors.blue,
-                                                      ),
-                                                    ),
-                                                  ),
-                                                  errorWidget:
-                                                      (context, url, error) =>
-                                                          Container(
+                                          child:
+                                              userProvider.user.imageUrl != null
+                                                  ? CachedNetworkImage(
+                                                    imageUrl:
+                                                        userProvider
+                                                            .user
+                                                            .imageUrl!,
+                                                    cacheKey:
+                                                        userProvider
+                                                            .user
+                                                            .imageKey,
+                                                    fit: BoxFit.cover,
+                                                    placeholder:
+                                                        (
+                                                          context,
+                                                          url,
+                                                        ) => Container(
+                                                          decoration:
+                                                              BoxDecoration(
+                                                                color:
+                                                                    Colors
+                                                                        .grey[800],
+                                                                shape:
+                                                                    BoxShape
+                                                                        .circle,
+                                                              ),
+                                                          child: const Center(
+                                                            child:
+                                                                CircularProgressIndicator(
+                                                                  color:
+                                                                      Colors
+                                                                          .blue,
+                                                                ),
+                                                          ),
+                                                        ),
+                                                    errorWidget:
+                                                        (
+                                                          context,
+                                                          url,
+                                                          error,
+                                                        ) => Container(
+                                                          decoration:
+                                                              BoxDecoration(
+                                                                color:
+                                                                    Colors
+                                                                        .grey[800],
+                                                                shape:
+                                                                    BoxShape
+                                                                        .circle,
+                                                              ),
+                                                          child: const Icon(
+                                                            Icons
+                                                                .person_rounded,
+                                                            color: Colors.white,
+                                                            size: 40,
+                                                          ),
+                                                        ),
+                                                  )
+                                                  : Container(
                                                     decoration: BoxDecoration(
                                                       color: Colors.grey[800],
                                                       shape: BoxShape.circle,
@@ -211,18 +251,6 @@ class _MoreOptionsPageState extends State<MoreOptionsPage> {
                                                       size: 40,
                                                     ),
                                                   ),
-                                                )
-                                              : Container(
-                                                  decoration: BoxDecoration(
-                                                    color: Colors.grey[800],
-                                                    shape: BoxShape.circle,
-                                                  ),
-                                                  child: const Icon(
-                                                    Icons.person_rounded,
-                                                    color: Colors.white,
-                                                    size: 40,
-                                                  ),
-                                                ),
                                         ),
                                       ),
                                     ),
@@ -309,7 +337,7 @@ class _MoreOptionsPageState extends State<MoreOptionsPage> {
                                 const SizedBox(height: 12),
                                 _buildAboutRow(
                                   icon: Icons.group_rounded,
-                                  text: 'St. George Church Sporting',
+                                  text: 'St. George Sporting',
                                 ),
                                 const SizedBox(height: 12),
                                 _buildAboutRow(
@@ -419,18 +447,11 @@ class _MoreOptionsPageState extends State<MoreOptionsPage> {
     );
   }
 
-  Widget _buildAboutRow({
-    required IconData icon,
-    required String text,
-  }) {
+  Widget _buildAboutRow({required IconData icon, required String text}) {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Icon(
-          icon,
-          color: Colors.blue.shade300,
-          size: 20,
-        ),
+        Icon(icon, color: Colors.blue.shade300, size: 20),
         const SizedBox(width: 12),
         Expanded(
           child: Text(
@@ -464,15 +485,9 @@ class _MoreOptionsPageState extends State<MoreOptionsPage> {
           padding: const EdgeInsets.all(18),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(16),
-            border: Border.all(
-              color: Colors.white.withAlpha(26),
-              width: 1,
-            ),
+            border: Border.all(color: Colors.white.withAlpha(26), width: 1),
             gradient: LinearGradient(
-              colors: [
-                color.withAlpha(26),
-                color.withAlpha(13),
-              ],
+              colors: [color.withAlpha(26), color.withAlpha(13)],
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
             ),
@@ -484,16 +499,9 @@ class _MoreOptionsPageState extends State<MoreOptionsPage> {
                 decoration: BoxDecoration(
                   color: color.withAlpha(38),
                   shape: BoxShape.circle,
-                  border: Border.all(
-                    color: color.withAlpha(77),
-                    width: 1.5,
-                  ),
+                  border: Border.all(color: color.withAlpha(77), width: 1.5),
                 ),
-                child: Icon(
-                  icon,
-                  color: color,
-                  size: 22,
-                ),
+                child: Icon(icon, color: color, size: 22),
               ),
               const SizedBox(width: 16),
               Expanded(
