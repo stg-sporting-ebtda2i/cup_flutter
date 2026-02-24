@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
 import 'package:piehme_cup_flutter/routes/app_routes.dart';
 import 'package:piehme_cup_flutter/services/auth_service.dart';
+import 'package:piehme_cup_flutter/themes/backgrounds_extension.dart';
 import 'package:piehme_cup_flutter/utils/data_utils.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -34,11 +35,14 @@ class SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return Scaffold(
       body: Stack(
         children: [
-          const Image(
-            image: AssetImage('assets/backgrounds/splash_background.png'),
+          Image(
+            image: AssetImage(
+              theme.extension<BackgroundsExtension>()!.splashBackground,
+            ),
             fit: BoxFit.cover,
             width: double.maxFinite,
             height: double.maxFinite,

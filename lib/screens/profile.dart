@@ -6,6 +6,8 @@ import 'package:piehme_cup_flutter/providers/buttons_visibility_provider.dart';
 import 'package:piehme_cup_flutter/providers/header_provider.dart';
 import 'package:piehme_cup_flutter/providers/user_provider.dart';
 import 'package:piehme_cup_flutter/routes/app_routes.dart';
+import 'package:piehme_cup_flutter/themes/backgrounds_extension.dart';
+import 'package:piehme_cup_flutter/themes/theme_switcher.dart'; // Add this import
 import 'package:piehme_cup_flutter/widgets/animated_list_item.dart';
 import 'package:piehme_cup_flutter/widgets/header.dart';
 import 'package:piehme_cup_flutter/services/auth_service.dart';
@@ -67,6 +69,9 @@ class _MoreOptionsPageState extends State<MoreOptionsPage> {
 
   @override
   Widget build(BuildContext context) {
+    final themeSwitcher = Provider.of<ThemeSwitcher>(context);
+    final isDark = themeSwitcher.isDarkMode(context);
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.black,
@@ -74,15 +79,15 @@ class _MoreOptionsPageState extends State<MoreOptionsPage> {
         elevation: 0,
       ),
       body: Container(
-        decoration: const BoxDecoration(
+        decoration: BoxDecoration(
           image: DecorationImage(
-            image: AssetImage('assets/backgrounds/profile_background.png'),
+            image: AssetImage(Theme.of(context).extension<BackgroundsExtension>()!.profileBackground),
             fit: BoxFit.cover,
           ),
         ),
         child: Column(
           children: [
-            // Enhanced Header
+            // Enhanced Header with Theme Toggle
             SafeArea(
               child: Container(
                 padding: EdgeInsets.symmetric(vertical: 26),
@@ -110,7 +115,33 @@ class _MoreOptionsPageState extends State<MoreOptionsPage> {
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      Header(),
+                      Row(
+                        children: [
+                          // Theme Toggle Button
+                          Container(
+                            margin: const EdgeInsets.only(right: 8),
+                            decoration: BoxDecoration(
+                              color: Colors.white.withAlpha(26),
+                              borderRadius: BorderRadius.circular(30),
+                              border: Border.all(
+                                color: Colors.white.withAlpha(51),
+                                width: 1,
+                              ),
+                            ),
+                            child: IconButton(
+                              icon: Icon(
+                                isDark ? Icons.light_mode : Icons.dark_mode,
+                                color: Colors.white,
+                                size: 22,
+                              ),
+                              onPressed: () => themeSwitcher.toggleTheme(),
+                              tooltip: isDark ? 'Switch to Light Mode' : 'Switch to Dark Mode',
+                              splashRadius: 24,
+                            ),
+                          ),
+                          Header(),
+                        ],
+                      ),
                     ],
                   ),
                 ),
@@ -164,7 +195,7 @@ class _MoreOptionsPageState extends State<MoreOptionsPage> {
                                         shape: BoxShape.circle,
                                         image: DecorationImage(
                                           image: AssetImage(
-                                            'assets/backgrounds/profile_background.png',
+                                            Theme.of(context).extension<BackgroundsExtension>()!.profileBackground,
                                           ),
                                           fit: BoxFit.cover,
                                         ),
@@ -181,63 +212,63 @@ class _MoreOptionsPageState extends State<MoreOptionsPage> {
                                         padding: const EdgeInsets.all(3.0),
                                         child: ClipOval(
                                           child:
-                                              userProvider.user.imageUrl != null
+                                          userProvider.user.imageUrl != null
                                               ? CachedNetworkImage(
-                                                  imageUrl: userProvider
-                                                      .user
-                                                      .imageUrl!,
-                                                  cacheKey: userProvider
-                                                      .user
-                                                      .imageKey,
-                                                  fit: BoxFit.cover,
-                                                  placeholder: (context, url) =>
-                                                      Container(
-                                                        decoration:
-                                                            BoxDecoration(
-                                                              color: Colors
-                                                                  .grey[800],
-                                                              shape: BoxShape
-                                                                  .circle,
-                                                            ),
-                                                        child: const Center(
-                                                          child:
-                                                              CircularProgressIndicator(
-                                                                color:
-                                                                    Colors.blue,
-                                                              ),
-                                                        ),
-                                                      ),
-                                                  errorWidget:
-                                                      (
-                                                        context,
-                                                        url,
-                                                        error,
-                                                      ) => Container(
-                                                        decoration:
-                                                            BoxDecoration(
-                                                              color: Colors
-                                                                  .grey[800],
-                                                              shape: BoxShape
-                                                                  .circle,
-                                                            ),
-                                                        child: const Icon(
-                                                          Icons.person_rounded,
-                                                          color: Colors.white,
-                                                          size: 40,
-                                                        ),
-                                                      ),
-                                                )
-                                              : Container(
-                                                  decoration: BoxDecoration(
-                                                    color: Colors.grey[800],
-                                                    shape: BoxShape.circle,
+                                            imageUrl: userProvider
+                                                .user
+                                                .imageUrl!,
+                                            cacheKey: userProvider
+                                                .user
+                                                .imageKey,
+                                            fit: BoxFit.cover,
+                                            placeholder: (context, url) =>
+                                                Container(
+                                                  decoration:
+                                                  BoxDecoration(
+                                                    color: Colors
+                                                        .grey[800],
+                                                    shape: BoxShape
+                                                        .circle,
                                                   ),
-                                                  child: const Icon(
-                                                    Icons.person_rounded,
-                                                    color: Colors.white,
-                                                    size: 40,
+                                                  child: const Center(
+                                                    child:
+                                                    CircularProgressIndicator(
+                                                      color:
+                                                      Colors.blue,
+                                                    ),
                                                   ),
                                                 ),
+                                            errorWidget:
+                                                (
+                                                context,
+                                                url,
+                                                error,
+                                                ) => Container(
+                                              decoration:
+                                              BoxDecoration(
+                                                color: Colors
+                                                    .grey[800],
+                                                shape: BoxShape
+                                                    .circle,
+                                              ),
+                                              child: const Icon(
+                                                Icons.person_rounded,
+                                                color: Colors.white,
+                                                size: 40,
+                                              ),
+                                            ),
+                                          )
+                                              : Container(
+                                            decoration: BoxDecoration(
+                                              color: Colors.grey[800],
+                                              shape: BoxShape.circle,
+                                            ),
+                                            child: const Icon(
+                                              Icons.person_rounded,
+                                              color: Colors.white,
+                                              size: 40,
+                                            ),
+                                          ),
                                         ),
                                       ),
                                     ),

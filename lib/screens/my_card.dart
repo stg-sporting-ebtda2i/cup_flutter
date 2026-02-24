@@ -12,6 +12,7 @@ import 'package:piehme_cup_flutter/screens/icons_store.dart';
 import 'package:piehme_cup_flutter/screens/positions_store.dart';
 import 'package:piehme_cup_flutter/screens/rating_store.dart';
 import 'package:piehme_cup_flutter/services/change_picture_service.dart';
+import 'package:piehme_cup_flutter/themes/backgrounds_extension.dart';
 import 'package:piehme_cup_flutter/widgets/animated_list_item.dart';
 import 'package:piehme_cup_flutter/widgets/header.dart';
 import 'package:piehme_cup_flutter/widgets/my_card_icon_button.dart';
@@ -81,8 +82,8 @@ class _MyCardPageState extends State<MyCardPage> {
       builder: (context, provider, buttonsVisibility, userProvider, child) => Scaffold(
           body: Stack(
         children: [
-          const Image(
-            image: AssetImage('assets/backgrounds/user_card_background.jpg'),
+          Image(
+            image: AssetImage(Theme.of(context).extension<BackgroundsExtension>()!.userCardBackground),
             fit: BoxFit.cover,
             width: double.infinity,
             height: double.infinity,

@@ -86,6 +86,9 @@ flutter:
   assets:
     - assets/
     - assets/backgrounds/
+    - assets/backgrounds/rtgl-dark/
+    - assets/backgrounds/rtgl-light/
+    - assets/backgrounds/rtbl/
     - assets/icons/
     - assets/lottie/
     - assets/placeholder/

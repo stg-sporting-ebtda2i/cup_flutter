@@ -4,6 +4,7 @@ import 'package:piehme_cup_flutter/providers/leaderboard_provider.dart';
 import 'package:piehme_cup_flutter/providers/user_provider.dart';
 import 'package:piehme_cup_flutter/states/empty_state.dart';
 import 'package:piehme_cup_flutter/states/loading_state.dart';
+import 'package:piehme_cup_flutter/themes/backgrounds_extension.dart';
 import 'package:piehme_cup_flutter/widgets/animated_list_item.dart';
 import 'package:piehme_cup_flutter/widgets/header.dart';
 import 'package:piehme_cup_flutter/widgets/leaderboard_listitem.dart';
@@ -32,7 +33,7 @@ class _LeaderboardState extends State<Leaderboard> {
                 image: DecorationImage(
               fit: BoxFit.cover,
               image:
-                  AssetImage('assets/backgrounds/leaderboard_background.png'),
+                  AssetImage(Theme.of(context).extension<BackgroundsExtension>()!.leaderboardBackground),
             )),
             child: Column(
               children: [

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:piehme_cup_flutter/constants/app_colors.dart';
 import 'package:piehme_cup_flutter/dialogs/message.dart';
 import 'package:piehme_cup_flutter/routes/app_routes.dart';
+import 'package:piehme_cup_flutter/themes/backgrounds_extension.dart';
 import 'package:piehme_cup_flutter/utils/data_utils.dart';
 import 'package:piehme_cup_flutter/widgets/widgets_button.dart';
 import 'package:piehme_cup_flutter/widgets/widgets_text_field.dart';
@@ -14,7 +15,8 @@ class LoginPage extends StatefulWidget {
   State<LoginPage> createState() => _LoginPageState();
 }
 
-class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMixin {
+class _LoginPageState extends State<LoginPage>
+    with SingleTickerProviderStateMixin {
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   bool _isLoading = false;
@@ -31,19 +33,13 @@ class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMix
     );
 
     _fadeAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
-      CurvedAnimation(
-        parent: _animationController,
-        curve: Curves.easeInOut,
-      ),
+      CurvedAnimation(parent: _animationController, curve: Curves.easeInOut),
     );
 
-    _slideAnimation = Tween<Offset>(
-      begin: const Offset(0, 0.3),
-      end: Offset.zero,
-    ).animate(CurvedAnimation(
-      parent: _animationController,
-      curve: Curves.easeOut,
-    ));
+    _slideAnimation =
+        Tween<Offset>(begin: const Offset(0, 0.3), end: Offset.zero).animate(
+          CurvedAnimation(parent: _animationController, curve: Curves.easeOut),
+        );
 
     // Start animation after build
     WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -97,13 +93,16 @@ class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMix
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: Colors.transparent,
       body: Stack(
         children: [
-          const Image(
-            image: AssetImage('assets/backgrounds/form_background.png'),
+          Image(
+            image: AssetImage(
+              theme.extension<BackgroundsExtension>()!.formBackground,
+            ),
             fit: BoxFit.cover,
             width: double.maxFinite,
             height: double.maxFinite,

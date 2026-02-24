@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:piehme_cup_flutter/dialogs/message.dart';
 import 'package:piehme_cup_flutter/routes/app_routes.dart';
+import 'package:piehme_cup_flutter/themes/backgrounds_extension.dart';
 import 'package:piehme_cup_flutter/widgets/widgets_button.dart';
 import 'package:piehme_cup_flutter/widgets/widgets_custom_dropdown.dart';
 import 'package:piehme_cup_flutter/widgets/widgets_text_field.dart';
@@ -67,14 +68,17 @@ class _RegisterPageState extends State<RegisterPage> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: Colors.transparent,
       body: SafeArea(
         child: Stack(
           children: [
-            const Image(
-              image: AssetImage('assets/backgrounds/form_background.png'),
+            Image(
+              image: AssetImage(
+                theme.extension<BackgroundsExtension>()!.formBackground,
+              ),
               fit: BoxFit.cover,
               width: double.infinity,
               height: double.infinity,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:piehme_cup_flutter/themes/backgrounds_extension.dart';
 
 class MaintenancePage extends StatelessWidget {
   const MaintenancePage({super.key});
@@ -7,9 +8,9 @@ class MaintenancePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        decoration: const BoxDecoration(
+        decoration: BoxDecoration(
           image: DecorationImage(
-            image: AssetImage('assets/backgrounds/server_down_background.jpg'),
+            image: AssetImage(Theme.of(context).extension<BackgroundsExtension>()!.serverDownBackground),
             fit: BoxFit.cover,
           ),
         ),

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:piehme_cup_flutter/constants/app_colors.dart';
 import 'package:piehme_cup_flutter/providers/attendance_provider.dart';
 import 'package:piehme_cup_flutter/providers/buttons_visibility_provider.dart';
 import 'package:piehme_cup_flutter/providers/header_provider.dart';
@@ -17,18 +16,20 @@ import 'package:piehme_cup_flutter/providers/user_provider.dart';
 import 'package:piehme_cup_flutter/routes/app_routes.dart';
 import 'package:piehme_cup_flutter/routes/route_generator.dart';
 import 'package:piehme_cup_flutter/services/navigation_service.dart';
+import 'package:piehme_cup_flutter/themes/theme_switcher.dart';
+import 'package:piehme_cup_flutter/themes/app_theme.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/services.dart';
 
 void main() {
-  SystemChrome.setSystemUIOverlayStyle(
-    const SystemUiOverlayStyle(
-      statusBarColor: Colors.black,
-      systemNavigationBarColor: Colors.black,
-      systemNavigationBarIconBrightness: Brightness.light,
-      statusBarIconBrightness: Brightness.light,
-    ),
-  );
+  // SystemChrome.setSystemUIOverlayStyle(
+  //   const SystemUiOverlayStyle(
+  //     statusBarColor: Colors.black,
+  //     systemNavigationBarColor: Colors.black,
+  //     systemNavigationBarIconBrightness: Brightness.light,
+  //     statusBarIconBrightness: Brightness.light,
+  //   ),
+  // );
   runApp(
     MultiProvider(
         providers: [
@@ -45,6 +46,7 @@ void main() {
           ChangeNotifierProvider(create: (_) => QuizzesProvider()),
           ChangeNotifierProvider(create: (_) => UserProvider()),
           ChangeNotifierProvider(create: (_) => IconsTextColorProvider()),
+          ChangeNotifierProvider(create: (_) => ThemeSwitcher()),
         ],
       child: const PiehmeCup(),
     ),
@@ -70,16 +72,26 @@ class PiehmeCup extends StatelessWidget {
       DeviceOrientation.portraitUp,
     ]);
 
-    return MaterialApp(
-      debugShowCheckedModeBanner: true,
-      navigatorKey: NavigationService.navigatorKey,
-      initialRoute: AppRoutes.splash,
-      onGenerateRoute: RouteGenerator.generateRoute,
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: AppColors.brand, brightness: Brightness.light,),
-        useMaterial3: true,
-      ),
-      builder: EasyLoading.init(),
+    return Consumer<ThemeSwitcher>(
+      builder: (context, themeSwitcher, child) {
+        return MaterialApp(
+          debugShowCheckedModeBanner: true,
+          navigatorKey: NavigationService.navigatorKey,
+          initialRoute: AppRoutes.splash,
+          onGenerateRoute: RouteGenerator.generateRoute,
+
+          // Light theme
+          theme: AppTheme.rtglLightTheme,
+
+          // Dark theme
+          darkTheme: AppTheme.rtglDarkTheme,
+
+          themeMode: themeSwitcher.themeMode,
+
+          // EasyLoading builder
+          builder: EasyLoading.init(),
+        );
+      },
     );
   }
 }

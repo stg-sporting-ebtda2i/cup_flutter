@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:piehme_cup_flutter/providers/base_lineup_provider.dart';
 import 'package:piehme_cup_flutter/providers/lineup_provider.dart';
 import 'package:piehme_cup_flutter/providers/other_lineup_provider.dart';
+import 'package:piehme_cup_flutter/themes/backgrounds_extension.dart';
 import 'package:piehme_cup_flutter/widgets/lineup_scores_panel.dart';
 import 'package:provider/provider.dart';
 import '../widgets/lineup_cards.dart';
@@ -15,7 +16,7 @@ class LineupPage extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext c) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.black,
@@ -25,22 +26,22 @@ class LineupPage extends StatelessWidget {
       body: userLineup
           ? Consumer<LineupProvider>(
               builder: (context, provider, child) {
-                return _buildLineupWidget(provider);
+                return _buildLineupWidget(provider, c);
               },
             )
           : Consumer<OtherLineupProvider>(
               builder: (context, provider, child) {
-                return _buildLineupWidget(provider);
+                return _buildLineupWidget(provider, c);
               },
             ),
     );
   }
 
-  Widget _buildLineupWidget(BaseLineupProvider provider) {
+  Widget _buildLineupWidget(BaseLineupProvider provider, BuildContext context) {
     return Container(
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
         image: DecorationImage(
-          image: AssetImage('assets/backgrounds/lineup_background.jpg'),
+          image: AssetImage(Theme.of(context).extension<BackgroundsExtension>()!.lineupBackground),
           // Background image
           fit: BoxFit.cover,
         ),
