@@ -18,7 +18,7 @@ class EmptyPlayerCard extends StatelessWidget {
       child: SizedBox(
         width: 900*height/1266,
         height: height,
-        child: emptyCardPlaceholder(),
+        child: emptyCardPlaceholder(context),
       ),
     );
   }

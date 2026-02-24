@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:piehme_cup_flutter/providers/header_provider.dart';
+import 'package:piehme_cup_flutter/themes/icons_extension.dart';
 import 'package:provider/provider.dart';
 
 class Header extends StatefulWidget {
@@ -32,7 +32,8 @@ class _HeaderState extends State<Header> {
         ),
         SizedBox(width: 8),
         Image.asset(
-          'assets/icons/coin.png',
+          Theme.of(context).extension<IconsExtension>()?.coin ??
+              'assets/icons/rtgl-dark/coin.png',
           width: 23,
           height: 23,
           fit: BoxFit.cover,

@@ -63,8 +63,8 @@ class _UserCardState extends State<UserCard> {
                 cacheKey:widget.user.iconKey,
                 width: double.infinity,
                 height: double.infinity,
-                errorWidget: (context, url, error) => emptyIconPlaceholder(),
-                placeholder: (context, url) => loadingCardPlaceholder(),
+                errorWidget: (context, url, error) => emptyIconPlaceholder(context),
+                placeholder: (context, url) => loadingCardPlaceholder(context),
                 fit: BoxFit.fill,
               ),
               // Centered Image

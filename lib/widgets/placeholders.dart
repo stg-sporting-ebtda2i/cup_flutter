@@ -1,35 +1,40 @@
 import 'package:flutter/material.dart';
+import 'package:piehme_cup_flutter/themes/placeholders_extension.dart';
 
-Widget emptyCardPlaceholder() {
-  return const Image(
-    image: AssetImage('assets/placeholder/empty_with_stars_card_placeholder.png'),
+Widget emptyCardPlaceholder(BuildContext context) {
+  final pic = Theme.of(context).extension<PlaceholdersExtension>()!.emptyCardPlaceholder;
+  return Image(
+    image: AssetImage(pic),
     fit: BoxFit.cover,
     width: double.maxFinite,
     height: double.maxFinite,
   );
 }
 
-Widget emptyIconPlaceholder() {
-  return const Image(
-    image: AssetImage('assets/placeholder/empty_card_placeholder.png'),
+Widget emptyIconPlaceholder(BuildContext context) {
+  final pic = Theme.of(context).extension<PlaceholdersExtension>()!.emptyIconPlaceholder;
+  return Image(
+    image: AssetImage(pic),
     fit: BoxFit.cover,
     width: double.maxFinite,
     height: double.maxFinite,
   );
 }
 
-Widget errorCardPlaceholder() {
-  return const Image(
-    image: AssetImage('assets/placeholder/error_card_placeholder.png'),
+Widget errorCardPlaceholder(BuildContext context) {
+  final pic = Theme.of(context).extension<PlaceholdersExtension>()!.emptyCardPlaceholder;
+  return Image(
+    image: AssetImage(pic),
     fit: BoxFit.cover,
     width: double.maxFinite,
     height: double.maxFinite,
   );
 }
 
-Widget loadingCardPlaceholder() {
-  return const Image(
-    image: AssetImage('assets/placeholder/loading_card_placeholder.png'),
+Widget loadingCardPlaceholder(BuildContext context) {
+  final pic = Theme.of(context).extension<PlaceholdersExtension>()!.emptyCardPlaceholder;
+  return Image(
+    image: AssetImage(pic),
     fit: BoxFit.cover,
     width: double.maxFinite,
     height: double.maxFinite,

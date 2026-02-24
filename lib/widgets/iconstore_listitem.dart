@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:piehme_cup_flutter/themes/icons_extension.dart';
 import 'package:piehme_cup_flutter/widgets/placeholders.dart';
 
 class IconStoreListItem extends StatelessWidget {
@@ -36,8 +37,8 @@ class IconStoreListItem extends StatelessWidget {
           width: 160,
           height: 220,
           fit: BoxFit.cover,
-          errorWidget: (context, url, error) => errorCardPlaceholder(),
-          placeholder: (context, url) => loadingCardPlaceholder(),
+          errorWidget: (context, url, error) => errorCardPlaceholder(context),
+          placeholder: (context, url) => loadingCardPlaceholder(context),
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -52,7 +53,8 @@ class IconStoreListItem extends StatelessWidget {
             ),
             SizedBox(width: 8,),
             Image.asset(
-              'assets/icons/coin.png',
+              Theme.of(context).extension<IconsExtension>()?.coin ??
+                  'assets/icons/rtgl-dark/coin.png',
               width: 20,
               height: 20,
               fit: BoxFit.cover,

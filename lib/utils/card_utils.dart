@@ -4,6 +4,7 @@ import 'package:piehme_cup_flutter/models/player.dart';
 import 'package:piehme_cup_flutter/providers/lineup_provider.dart';
 import 'package:piehme_cup_flutter/providers/players_store_provider.dart';
 import 'package:piehme_cup_flutter/services/players_service.dart';
+import 'package:piehme_cup_flutter/themes/icons_extension.dart';
 import 'package:piehme_cup_flutter/utils/action_utils.dart';
 import 'package:piehme_cup_flutter/widgets/empty_player_card.dart';
 import 'package:piehme_cup_flutter/widgets/player_card.dart';
@@ -47,7 +48,8 @@ class CardsUtils {
             width: 15 * cardHeight / 100,
             height: 15 * cardHeight / 100,
             child: Image.asset(
-              'assets/icons/chemistry_3.png',
+              Theme.of(context).extension<IconsExtension>()?.chemistry3 ??
+                  'assets/icons/rtgl-light/chemistry_3.png',
               fit: BoxFit.contain,
             ),
           ),
@@ -60,20 +62,22 @@ class CardsUtils {
           player: player,
           height: cardHeight,
           onClick: clickable
-              ? () => ActionUtils(
-                    context: context,
-                    delay: 0,
-                    action: () async {
-                      await PlayersService.sellPlayer(player.id);
-                      toast("${player.name} has been sold");
-                    },
-                    // callback: DataUtils.playersStoreCallback(context),
-                    callback: () async {
-                      await context.read<LineupProvider>().loadLineup(-1);
-                    },
-                  ).confirmAction(
+              ? () =>
+                    ActionUtils(
+                      context: context,
+                      delay: 0,
+                      action: () async {
+                        await PlayersService.sellPlayer(player.id);
+                        toast("${player.name} has been sold");
+                      },
+                      // callback: DataUtils.playersStoreCallback(context),
+                      callback: () async {
+                        await context.read<LineupProvider>().loadLineup(-1);
+                      },
+                    ).confirmAction(
                       text: "Are you sure you want to sell ${player.name}?",
-                      confirmBtn: "Sell")
+                      confirmBtn: "Sell",
+                    )
               : () {},
         );
       } else {
@@ -81,12 +85,15 @@ class CardsUtils {
           height: cardHeight,
           onClick: clickable
               ? () {
-                  PlayersStoreProvider provider =
-                      context.read<PlayersStoreProvider>();
+                  PlayersStoreProvider provider = context
+                      .read<PlayersStoreProvider>();
                   provider.loadStore(position);
                   if (!context.mounted) return;
-                  Navigator.pushNamed(context, AppRoutes.playersStore,
-                      arguments: {'position': position});
+                  Navigator.pushNamed(
+                    context,
+                    AppRoutes.playersStore,
+                    arguments: {'position': position},
+                  );
                 }
               : () {},
         );

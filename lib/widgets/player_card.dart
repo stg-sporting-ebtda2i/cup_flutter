@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:piehme_cup_flutter/models/player.dart';
+import 'package:piehme_cup_flutter/themes/icons_extension.dart';
 import 'package:piehme_cup_flutter/widgets/placeholders.dart';
 
 class PlayerCard extends StatelessWidget {
@@ -29,8 +30,8 @@ class PlayerCard extends StatelessWidget {
             width: double.infinity,
             height: double.infinity,
             fit: BoxFit.fill,
-            errorWidget: (context, url, error) => errorCardPlaceholder(),
-            placeholder: (context, url) => loadingCardPlaceholder(),
+            errorWidget: (context, url, error) => errorCardPlaceholder(context),
+            placeholder: (context, url) => loadingCardPlaceholder(context),
           ),
         ),
         Positioned(
@@ -39,7 +40,7 @@ class PlayerCard extends StatelessWidget {
           width: 15 * height / 100,
           height: 15 * height / 100,
           child: Image.asset(
-            _getChemistryAsset(player.chemistry),
+            _getChemistryAsset(player.chemistry, context),
             fit: BoxFit.contain,
           ),
         ),
@@ -47,16 +48,17 @@ class PlayerCard extends StatelessWidget {
     );
   }
 
-  String _getChemistryAsset(int chemistry) {
+  String _getChemistryAsset(int chemistry, BuildContext context) {
+    final icons = Theme.of(context).extension<IconsExtension>();
     switch (chemistry) {
       case 1:
-        return 'assets/icons/chemistry_1.png';
+        return icons?.chemistry1 ?? 'assets/icons/rtgl-light/chemistry_1.png';
       case 2:
-        return 'assets/icons/chemistry_2.png';
+        return icons?.chemistry2 ?? 'assets/icons/rtgl-light/chemistry_2.png';
       case 3:
-        return 'assets/icons/chemistry_3.png';
+        return icons?.chemistry3 ?? 'assets/icons/rtgl-light/chemistry_3.png';
       default:
-        return 'assets/icons/chemistry_0.png';
+        return icons?.chemistry0 ?? 'assets/icons/rtgl-light/chemistry_0.png';
     }
   }
 

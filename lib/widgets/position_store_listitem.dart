@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:piehme_cup_flutter/models/position.dart';
+import 'package:piehme_cup_flutter/themes/icons_extension.dart';
 
 class PositionListItem extends StatelessWidget {
 
@@ -44,7 +45,8 @@ class PositionListItem extends StatelessWidget {
             ),
             SizedBox(width: 8,),
             Image.asset(
-              'assets/icons/coin.png',
+              Theme.of(context).extension<IconsExtension>()?.coin ??
+                  'assets/icons/rtgl-dark/coin.png',
               width: 20,
               height: 20,
               fit: BoxFit.cover,

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:piehme_cup_flutter/models/player.dart';
+import 'package:piehme_cup_flutter/themes/icons_extension.dart';
 import 'package:piehme_cup_flutter/widgets/placeholders.dart';
 import 'package:piehme_cup_flutter/widgets/action_icon_button.dart';
 
@@ -62,7 +63,7 @@ class PlayerStoreListItem extends StatelessWidget {
 
                 // Player Details
                 Expanded(
-                  child: _buildPlayerDetails(),
+                  child: _buildPlayerDetails(context),
                 ),
 
                 // Action Section
@@ -86,15 +87,15 @@ class PlayerStoreListItem extends StatelessWidget {
             imageUrl: player.imageUrl ?? '',
             cacheKey: player.imageKey,
             fit: BoxFit.cover,
-            errorWidget: (context, url, error) => errorCardPlaceholder(),
-            placeholder: (context, url) => loadingCardPlaceholder(),
+            errorWidget: (context, url, error) => errorCardPlaceholder(context),
+            placeholder: (context, url) => loadingCardPlaceholder(context),
           ),
         ),
       ],
     );
   }
 
-  Widget _buildPlayerDetails() {
+  Widget _buildPlayerDetails(BuildContext context) {
     return SizedBox(
       height: 185,
       child: Column(
@@ -122,7 +123,7 @@ class PlayerStoreListItem extends StatelessWidget {
           // Price section
           Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [SizedBox(), _buildEnhancedPriceSection()]),
+              children: [SizedBox(), _buildEnhancedPriceSection(context)]),
         ],
       ),
     );
@@ -169,7 +170,7 @@ class PlayerStoreListItem extends StatelessWidget {
     );
   }
 
-  Widget _buildEnhancedPriceSection() {
+  Widget _buildEnhancedPriceSection(BuildContext context) {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
       decoration: BoxDecoration(
@@ -198,7 +199,8 @@ class PlayerStoreListItem extends StatelessWidget {
           ),
           SizedBox(width: 4),
           Image.asset(
-            'assets/icons/coin.png',
+            Theme.of(context).extension<IconsExtension>()?.coin ??
+                'assets/icons/rtgl-dark/coin.png',
             width: 16,
             height: 16,
             fit: BoxFit.cover,

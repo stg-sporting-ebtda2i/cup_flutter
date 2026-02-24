@@ -116,24 +116,13 @@ class QuizListItem extends StatelessWidget {
                                         color: quiz.isSolved ? Colors.green.shade300 : Colors.blue.shade300,
                                       ),
                                     ),
-                                  Row(
-                                    children: [
-                                      Text(
-                                        "${quiz.coins}",
-                                        style: TextStyle(
-                                          fontSize: quiz.isSolved ? 14 : 16,
-                                          fontWeight: quiz.isSolved ? FontWeight.w600 : FontWeight.bold,
-                                          color: quiz.isSolved ? Colors.green.shade300 : Colors.blue.shade300,
-                                        ),
-                                      ),
-                                      SizedBox(width: 8,),
-                                      Image.asset(
-                                        'assets/icons/coin.png',
-                                        width: 20,
-                                        height: 20,
-                                        fit: BoxFit.cover,
-                                      ),
-                                    ],
+                                  Text(
+                                    "${quiz.coins}€",
+                                    style: TextStyle(
+                                      fontSize: quiz.isSolved ? 14 : 16,
+                                      fontWeight: quiz.isSolved ? FontWeight.w600 : FontWeight.bold,
+                                      color: quiz.isSolved ? Colors.green.shade300 : Colors.blue.shade300,
+                                    ),
                                   ),
                                 ],
                               ),

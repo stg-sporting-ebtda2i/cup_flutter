@@ -90,8 +90,14 @@ flutter:
     - assets/backgrounds/rtgl-light/
     - assets/backgrounds/rtbl/
     - assets/icons/
+    - assets/icons/rtgl-dark/
+    - assets/icons/rtgl-light/
+    - assets/icons/rtbl/
     - assets/lottie/
     - assets/placeholder/
+    - assets/placeholder/rtgl-dark/
+    - assets/placeholder/rtgl-light/
+    - assets/placeholder/rtbl/
 
   fonts:
     - family: Dubai

@@ -111,7 +111,7 @@ class _LineupState extends State<Lineup> with SingleTickerProviderStateMixin, Wi
 
   @override
   Widget build(BuildContext context) {
-    _cardHeight = MediaQuery.of(context).size.height / 6.7;
+    _cardHeight = MediaQuery.of(context).size.height / 6.5;
 
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:piehme_cup_flutter/providers/lineup_provider.dart';
 import 'package:piehme_cup_flutter/providers/rating_store_provider.dart';
 import 'package:piehme_cup_flutter/services/card_rating_service.dart';
+import 'package:piehme_cup_flutter/themes/icons_extension.dart';
 import 'package:piehme_cup_flutter/utils/action_utils.dart';
 import 'package:piehme_cup_flutter/widgets/widgets_button.dart';
 import 'package:provider/provider.dart';
@@ -14,13 +15,12 @@ class RatingStorePage extends StatefulWidget {
 }
 
 class _RatingStorePageState extends State<RatingStorePage> {
-
   int delta = 0;
   late RatingStoreProvider provider;
   late LineupProvider lineupProvider;
 
   void _incRating() {
-    if ((provider.currentRating+delta)<99) {
+    if ((provider.currentRating + delta) < 99) {
       setState(() {
         delta++;
       });
@@ -28,7 +28,7 @@ class _RatingStorePageState extends State<RatingStorePage> {
   }
 
   void _decRating() {
-    if ((provider.currentRating+delta)>50) {
+    if ((provider.currentRating + delta) > 50) {
       setState(() {
         delta--;
       });
@@ -67,7 +67,7 @@ class _RatingStorePageState extends State<RatingStorePage> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                '${provider.currentRating+delta}',
+                '${provider.currentRating + delta}',
                 style: TextStyle(
                   fontWeight: FontWeight.w500,
                   fontSize: 60,
@@ -78,16 +78,20 @@ class _RatingStorePageState extends State<RatingStorePage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    (provider.ratingPrice*delta) >= 0 ? '${provider.ratingPrice*delta*-1}' : '+${provider.ratingPrice*delta*-1}',
+                    (provider.ratingPrice * delta) >= 0
+                        ? '${provider.ratingPrice * delta * -1}'
+                        : '+${provider.ratingPrice * delta * -1}',
                     style: TextStyle(
                       fontWeight: FontWeight.w500,
                       fontSize: 22,
                       color: Colors.white,
                     ),
                   ),
-                  SizedBox(width: 8,),
+                  SizedBox(width: 8),
                   Image.asset(
-                    'assets/icons/coin.png',
+                    Theme.of(context).extension<IconsExtension>()?.coin ??
+                        'assets/icons/rtgl-dark/coin.png',
+                    color: Colors.white,
                     width: 20,
                     height: 20,
                     fit: BoxFit.cover,
@@ -115,22 +119,22 @@ class _RatingStorePageState extends State<RatingStorePage> {
                   ),
                 ],
               ),
-              SizedBox(height: 17,),
+              SizedBox(height: 17),
               SizedBox(
                 width: 205,
                 child: CustomButton(
-                    text: 'Purchase',
-                    onPressed: () => ActionUtils(
-                        delay: 0,
-                        context: context,
-                        action: () => CardRatingService.upgradeRating(delta),
-                        callback: () async {
-                          delta = 0;
-                          provider.loadData();
-                          await lineupProvider.loadLineup(-1);
-                        }
-                    ).confirmAction(),
-                    isLoading: false,
+                  text: 'Purchase',
+                  onPressed: () => ActionUtils(
+                    delay: 0,
+                    context: context,
+                    action: () => CardRatingService.upgradeRating(delta),
+                    callback: () async {
+                      delta = 0;
+                      provider.loadData();
+                      await lineupProvider.loadLineup(-1);
+                    },
+                  ).confirmAction(),
+                  isLoading: false,
                   verticalPadding: 8,
                 ),
               ),

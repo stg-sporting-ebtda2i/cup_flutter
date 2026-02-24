@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:piehme_cup_flutter/providers/base_lineup_provider.dart';
+import 'package:piehme_cup_flutter/themes/colors_extension.dart';
 
 class ScoresPanel extends StatelessWidget {
   final BaseLineupProvider provider;
@@ -8,17 +9,21 @@ class ScoresPanel extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final Color topBar = Theme.of(context).extension<ColorsExtension>()!.topGradient;
+
     return Container(
+      // decoration: Theme.of(context).brightness == Brightness.dark ? BoxDecoration(
       decoration: BoxDecoration(
         gradient: LinearGradient(
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
           colors: [
-            Colors.black87,
+            topBar,
             Colors.transparent,
           ],
         ),
       ),
+      // ) : null,
       padding: EdgeInsets.only(top: 19, bottom: 32),
       child: Row(mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [

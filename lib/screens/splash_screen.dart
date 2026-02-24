@@ -5,6 +5,7 @@ import 'package:lottie/lottie.dart';
 import 'package:piehme_cup_flutter/routes/app_routes.dart';
 import 'package:piehme_cup_flutter/services/auth_service.dart';
 import 'package:piehme_cup_flutter/themes/backgrounds_extension.dart';
+import 'package:piehme_cup_flutter/themes/colors_extension.dart';
 import 'package:piehme_cup_flutter/utils/data_utils.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -16,7 +17,6 @@ class SplashScreen extends StatefulWidget {
 
 class SplashScreenState extends State<SplashScreen> {
   Future<void> _checkIfLoggedIn() async {
-    await Future.delayed(Duration(seconds: 3));
     String? token = await AuthService.getToken();
     bool isLoggedIn = token != null;
 
@@ -63,7 +63,9 @@ class SplashScreenState extends State<SplashScreen> {
                       'Looking for the Road...',
                       textStyle: GoogleFonts.leagueSpartan(
                         fontSize: 24,
-                        color: Color.fromARGB(255, 217, 217, 217),
+                        color: theme
+                            .extension<ColorsExtension>()!
+                            .splashScreenTextColor,
                         fontWeight: FontWeight.bold,
                       ),
                       speed: Duration(milliseconds: 200),
