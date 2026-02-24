@@ -143,4 +143,76 @@ class AppTheme {
       ),
     ],
   );
+
+
+  static final rtblBrandColor = Color.fromARGB(255, 246, 233, 175);
+
+  static ThemeData rtblTheme = ThemeData(
+    colorScheme: ColorScheme.fromSeed(
+      seedColor: rtblBrandColor,
+      brightness: Brightness.dark,
+    ),
+    useMaterial3: true,
+    extensions: [
+      BackgroundsExtension(
+        formBackground: 'assets/backgrounds/rtbl/form_background.png',
+        lineupBackground: 'assets/backgrounds/rtbl/lineup_background.jpg',
+        splashBackground: 'assets/backgrounds/rtbl/splash_background.png',
+        profileBackground:
+        'assets/backgrounds/rtbl/profile_background.png',
+        leaderboardBackground:
+        'assets/backgrounds/rtbl/leaderboard_background.png',
+        serverDownBackground:
+        'assets/backgrounds/rtbl/server_down_background.png',
+        userCardBackground:
+        'assets/backgrounds/rtbl/user_card_background.png',
+      ),
+      MainColorsExtension(
+        splashScreenTextColor: Color.fromARGB(255, 217, 217, 217),
+        bottomNavBarBackground: Colors.black,
+        bottomNavBarForeground: Color(0xFF9D9D9D),
+        bottomNavBarSelected: rtblBrandColor,
+        topGradient: Colors.black,
+      ),
+      PlaceholdersExtension(
+        emptyCardPlaceholder:
+        'assets/placeholder/rtbl/empty_card_placeholder.png',
+        emptyIconPlaceholder:
+        'assets/placeholder/rtbl/empty_card_placeholder.png',
+        loadingPlaceholder:
+        'assets/placeholder/rtbl/loading_card_placeholder.png',
+        errorPlaceholder:
+        'assets/placeholder/rtbl/error_card_placeholder.png',
+      ),
+      IconsExtension(
+        chemistry0: 'assets/icons/rtbl/chemistry_0.png',
+        chemistry1: 'assets/icons/rtbl/chemistry_1.png',
+        chemistry2: 'assets/icons/rtbl/chemistry_2.png',
+        chemistry3: 'assets/icons/rtbl/chemistry_3.png',
+        coin: 'assets/icons/rtbl/coin.png',
+      ),
+      StatesColorsExtension(
+        textColor: Colors.white,
+        mainColor: rtblBrandColor,
+        textFieldHint: Color.fromARGB(215, 255, 255, 255),
+        textFieldBackground: Color.fromARGB(176, 19, 19, 19),
+      ),
+      GradientsExtension(
+          solveQuiz: [Color(0xFF1a2a3a), Color(0xFF0d1b2a), Color(0xFF050a14)],
+          attendanceList: [
+            Color(0xFF023D4D),
+            Color(0xFF34443C),
+            Color(0xFF230D19),
+          ],
+          quizzesList: [Color(0xFF8A7C57), Color(0xFF16393F), Color(0xFF050514)],
+          store: [
+            Color(0xFF054127),
+            Color(0xFF032C28),
+            Color(0xFF021C29),
+            Color(0xFF250D1B),
+            Color(0xFF50121F),
+          ]
+      ),
+    ],
+  );
 }
