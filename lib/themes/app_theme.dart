@@ -1,10 +1,11 @@
 // lib/themes/app_theme.dart
 import 'package:flutter/material.dart';
-import 'package:piehme_cup_flutter/constants/app_colors.dart';
 import 'package:piehme_cup_flutter/themes/backgrounds_extension.dart';
-import 'package:piehme_cup_flutter/themes/colors_extension.dart';
+import 'package:piehme_cup_flutter/themes/gradients_extension.dart';
+import 'package:piehme_cup_flutter/themes/main_colors_extension.dart';
 import 'package:piehme_cup_flutter/themes/icons_extension.dart';
 import 'package:piehme_cup_flutter/themes/placeholders_extension.dart';
+import 'package:piehme_cup_flutter/themes/states_colors_extension.dart';
 
 class AppTheme {
   static final rtglDarkBrandColor = Color.fromARGB(255, 248, 195, 127);
@@ -29,7 +30,7 @@ class AppTheme {
         userCardBackground:
             'assets/backgrounds/rtgl-dark/user_card_background.jpg',
       ),
-      ColorsExtension(
+      MainColorsExtension(
         splashScreenTextColor: Color.fromARGB(255, 217, 217, 217),
         bottomNavBarBackground: Colors.black,
         bottomNavBarForeground: Color(0xFF9D9D9D),
@@ -53,6 +54,28 @@ class AppTheme {
         chemistry3: 'assets/icons/rtgl-dark/chemistry_3.png',
         coin: 'assets/icons/rtgl-dark/coin.png',
       ),
+      StatesColorsExtension(
+        textColor: Colors.white,
+        mainColor: rtglDarkBrandColor,
+        textFieldHint: Color.fromARGB(215, 255, 255, 255),
+        textFieldBackground: Color.fromARGB(176, 19, 19, 19),
+      ),
+      GradientsExtension(
+        solveQuiz: [Color(0xFF1a2a3a), Color(0xFF0d1b2a), Color(0xFF050a14)],
+        attendanceList: [
+          Color(0xFF023D4D),
+          Color(0xFF34443C),
+          Color(0xFF230D19),
+        ],
+        quizzesList: [Color(0xFF8A7C57), Color(0xFF16393F), Color(0xFF050514)],
+        store: [
+            Color(0xFF054127),
+            Color(0xFF032C28),
+            Color(0xFF021C29),
+            Color(0xFF250D1B),
+            Color(0xFF50121F),
+          ]
+      ),
     ],
   );
 
@@ -60,15 +83,14 @@ class AppTheme {
 
   static ThemeData rtglLightTheme = ThemeData(
     colorScheme: ColorScheme.fromSeed(
-      seedColor: AppColors.brand,
+      seedColor: rtglLightBrandColor,
       brightness: Brightness.light,
     ),
     useMaterial3: true,
     extensions: [
       BackgroundsExtension(
         formBackground: 'assets/backgrounds/rtgl-light/form_background.png',
-        lineupBackground:
-            'assets/backgrounds/rtgl-light/lineup_background.jpg',
+        lineupBackground: 'assets/backgrounds/rtgl-light/lineup_background.jpg',
         splashBackground: 'assets/backgrounds/rtgl-light/splash_background.png',
         profileBackground:
             'assets/backgrounds/rtgl-light/profile_background.png',
@@ -79,7 +101,7 @@ class AppTheme {
         userCardBackground:
             'assets/backgrounds/rtgl-light/user_card_background.png',
       ),
-      ColorsExtension(
+      MainColorsExtension(
         splashScreenTextColor: Color.fromARGB(255, 38, 38, 38),
         bottomNavBarBackground: Color(0xFF200A00),
         bottomNavBarForeground: Color(0xFFA1794A),
@@ -102,6 +124,22 @@ class AppTheme {
         chemistry2: 'assets/icons/rtgl-light/chemistry_2.png',
         chemistry3: 'assets/icons/rtgl-light/chemistry_3.png',
         coin: 'assets/icons/rtgl-dark/coin.png',
+      ),
+      StatesColorsExtension(
+        textColor: Colors.black,
+        mainColor: rtglLightBrandColor,
+        textFieldHint: Color.fromARGB(215, 255, 255, 255),
+        textFieldBackground: Color.fromARGB(176, 19, 19, 19),
+      ),
+      GradientsExtension(
+        solveQuiz: [Color(0xFF0293DD), Color(0xFFD3B991), Color(0xFF7A491D)],
+        attendanceList: [
+          Color(0xFF0293DD),
+          Color(0xFFD3B991),
+          Color(0xFF7A491D),
+        ],
+        quizzesList: [Color(0xFF0293DD), Color(0xFFD3B991), Color(0xFF7A491D)],
+        store: [Color(0xFF0293DD), Color(0xFFD3B991), Color(0xFF7A491D)],
       ),
     ],
   );

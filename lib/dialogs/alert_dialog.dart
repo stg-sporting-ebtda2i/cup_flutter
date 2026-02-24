@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:piehme_cup_flutter/constants/app_colors.dart';
+import 'package:piehme_cup_flutter/themes/states_colors_extension.dart';
 import 'package:piehme_cup_flutter/widgets/widgets_button.dart';
 import 'package:piehme_cup_flutter/widgets/widgets_custom_outlined_button.dart';
 
@@ -31,13 +31,15 @@ AlertDialog alertDialog({
   String cancelBtnText = "Cancel",
   required VoidCallback positiveBtnAction,
 }) {
+  final mainColor = Theme.of(context).extension<StatesColorsExtension>()!.mainColor;
+
   return AlertDialog(
     backgroundColor: Colors.grey[900],
     elevation: 24,
     shape: RoundedRectangleBorder(
       borderRadius: BorderRadius.circular(25),
       side: BorderSide(
-        color: AppColors.brand.withAlpha(77),
+        color: mainColor.withAlpha(77),
         width: 1.5,
       ),
     ),
@@ -71,8 +73,8 @@ AlertDialog alertDialog({
               decoration: BoxDecoration(
                 gradient: LinearGradient(
                   colors: [
-                    AppColors.brand.withAlpha(155),
-                    AppColors.brand
+                    mainColor.withAlpha(155),
+                    mainColor
                   ],
                   begin: Alignment.topRight,
                   end: Alignment.bottomLeft,
@@ -80,7 +82,7 @@ AlertDialog alertDialog({
                 shape: BoxShape.circle,
                 boxShadow: [
                   BoxShadow(
-                    color: AppColors.brand.withAlpha(102),
+                    color: mainColor.withAlpha(102),
                     blurRadius: 15,
                     offset: const Offset(0, 5),
                   ),

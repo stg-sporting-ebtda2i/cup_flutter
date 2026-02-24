@@ -40,7 +40,7 @@ class _RatingStorePageState extends State<RatingStorePage> {
     provider = Provider.of<RatingStoreProvider>(context);
     lineupProvider = Provider.of<LineupProvider>(context);
     return Container(
-      color: Colors.black87,
+      // color: Colors.black87,
       padding: const EdgeInsets.only(top: 20, left: 32, right: 16, bottom: 28),
       child: Column(
         mainAxisSize: MainAxisSize.min,
@@ -91,7 +91,6 @@ class _RatingStorePageState extends State<RatingStorePage> {
                   Image.asset(
                     Theme.of(context).extension<IconsExtension>()?.coin ??
                         'assets/icons/rtgl-dark/coin.png',
-                    color: Colors.white,
                     width: 20,
                     height: 20,
                     fit: BoxFit.cover,

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:piehme_cup_flutter/constants/app_colors.dart';
+import 'package:piehme_cup_flutter/themes/states_colors_extension.dart';
 
 class CustomButton extends StatelessWidget {
   final String text;
@@ -17,6 +17,9 @@ class CustomButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final mainColor = Theme.of(
+      context,
+    ).extension<StatesColorsExtension>()!.mainColor;
     return ElevatedButton(
       onPressed: isLoading ? null : onPressed,
       style: ElevatedButton.styleFrom(
@@ -24,8 +27,8 @@ class CustomButton extends StatelessWidget {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12),
           ),
-          backgroundColor: AppColors.brand,
-          disabledBackgroundColor: AppColors.brandSecondary,
+          backgroundColor: mainColor,
+          disabledBackgroundColor: mainColor.withAlpha(89),
           foregroundColor: Colors.black,
           textStyle: TextStyle(
               fontSize: 20, fontWeight: FontWeight.w500, fontFamily: 'Dubai')),

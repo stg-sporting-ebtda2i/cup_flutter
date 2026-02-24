@@ -1,16 +1,17 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:piehme_cup_flutter/themes/states_colors_extension.dart';
 
 class MyCardIconButton extends StatelessWidget {
   final String text;
   final String iconPath;
   final VoidCallback callback;
 
-  const MyCardIconButton(
-      {super.key,
-      required this.text,
-      required this.iconPath,
-      required this.callback});
+  const MyCardIconButton({
+    super.key,
+    required this.text,
+    required this.iconPath,
+    required this.callback,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -19,20 +20,18 @@ class MyCardIconButton extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          SizedBox(
-            width: 55,
-            height: 55,
-            child: Image.asset(iconPath),
-          ),
+          SizedBox(width: 55, height: 55, child: Image.asset(iconPath)),
           SizedBox(height: 7),
           Text(
             text.toUpperCase(),
             style: TextStyle(
               fontWeight: FontWeight.w800,
-              color: Colors.white,
-              fontSize: 11
+              color: Theme.of(
+                context,
+              ).extension<StatesColorsExtension>()!.textColor,
+              fontSize: 11,
             ),
-          )
+          ),
         ],
       ),
     );

@@ -23,7 +23,7 @@ class _IconsStorePageState extends State<IconsStorePage> {
     provider = Provider.of<IconsStoreProvider>(context);
     lineupProvider = Provider.of<LineupProvider>(context);
     return Container(
-      color: Colors.black87,
+      // color: Colors.black87,
       padding: const EdgeInsets.only(top: 20),
       child: Column(
         mainAxisSize: MainAxisSize.min,

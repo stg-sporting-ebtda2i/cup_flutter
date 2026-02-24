@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
-import 'package:piehme_cup_flutter/constants/app_colors.dart';
+import 'package:piehme_cup_flutter/themes/states_colors_extension.dart';
 
 class LoadingDialog extends StatelessWidget {
   const LoadingDialog({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final mainColor = Theme.of(context).extension<StatesColorsExtension>()!.mainColor;
+
     return Dialog(
       backgroundColor: Colors.transparent,
       elevation: 0,
@@ -18,7 +20,7 @@ class LoadingDialog extends StatelessWidget {
           color: Colors.grey[900]!.withAlpha(242),
           borderRadius: BorderRadius.circular(25),
           border: Border.all(
-            color: AppColors.brand.withAlpha(77),
+            color: mainColor.withAlpha(77),
             width: 1.5,
           ),
           boxShadow: [
@@ -72,7 +74,7 @@ class LoadingDialog extends StatelessWidget {
               child: LinearProgressIndicator(
                 backgroundColor: Colors.grey.shade800,
                 valueColor: AlwaysStoppedAnimation<Color>(
-                  AppColors.brand,
+                  mainColor,
                 ),
                 borderRadius: BorderRadius.circular(10),
                 minHeight: 4,

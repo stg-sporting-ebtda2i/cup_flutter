@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:piehme_cup_flutter/themes/states_colors_extension.dart';
 
 class EmptyState extends StatelessWidget {
   final IconData iconData;
@@ -13,6 +14,8 @@ class EmptyState extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final color = Theme.of(context).extension<StatesColorsExtension>()!.textColor;
+    
     return SizedBox(
       height: MediaQuery.of(context).size.height * 0.8,
       child: Center(
@@ -24,12 +27,12 @@ class EmptyState extends StatelessWidget {
               width: 80,
               height: 80,
               decoration: BoxDecoration(
-                color: Colors.white.withAlpha(26),
+                color: color.withAlpha(26),
                 shape: BoxShape.circle,
               ),
               child: Icon(
                 iconData,
-                color: Colors.white.withAlpha(179),
+                color: color.withAlpha(170),
                 size: 30,
               ),
             ),
@@ -40,7 +43,7 @@ class EmptyState extends StatelessWidget {
               title,
               style: TextStyle(
                 fontSize: 20,
-                color: Colors.white,
+                color: color,
                 fontWeight: FontWeight.w600,
               ),
             ),
@@ -50,7 +53,7 @@ class EmptyState extends StatelessWidget {
               subtitle,
               style: TextStyle(
                 fontSize: 14,
-                color: Colors.white.withAlpha(179),
+                color: color.withAlpha(170),
               ),
             ),
           ],

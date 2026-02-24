@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class ColorsExtension extends ThemeExtension<ColorsExtension> {
+class MainColorsExtension extends ThemeExtension<MainColorsExtension> {
   final Color splashScreenTextColor;
   final Color bottomNavBarBackground;
   final Color bottomNavBarForeground;
   final Color bottomNavBarSelected;
   final Color topGradient;
 
-  const ColorsExtension({
+  const MainColorsExtension({
     required this.splashScreenTextColor,
     required this.bottomNavBarBackground,
     required this.bottomNavBarForeground,
@@ -16,14 +16,14 @@ class ColorsExtension extends ThemeExtension<ColorsExtension> {
   });
 
   @override
-  ThemeExtension<ColorsExtension> copyWith({
+  ThemeExtension<MainColorsExtension> copyWith({
     Color? splashScreenTextColor,
     Color? bottomNavBarBackground,
     Color? bottomNavBarForeground,
     Color? bottomNavBarSelected,
     Color? topGradient,
   }) {
-    return ColorsExtension(
+    return MainColorsExtension(
       splashScreenTextColor:
           splashScreenTextColor ?? this.splashScreenTextColor,
       bottomNavBarBackground:
@@ -36,12 +36,12 @@ class ColorsExtension extends ThemeExtension<ColorsExtension> {
   }
 
   @override
-  ColorsExtension lerp(
-    covariant ThemeExtension<ColorsExtension>? other,
+  MainColorsExtension lerp(
+    covariant ThemeExtension<MainColorsExtension>? other,
     double t,
   ) {
-    if (other is! ColorsExtension) return this;
-    return ColorsExtension(
+    if (other is! MainColorsExtension) return this;
+    return MainColorsExtension(
       splashScreenTextColor:
           Color.lerp(splashScreenTextColor, other.splashScreenTextColor, t) ??
           splashScreenTextColor,

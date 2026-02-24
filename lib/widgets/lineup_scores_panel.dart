@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:piehme_cup_flutter/providers/base_lineup_provider.dart';
-import 'package:piehme_cup_flutter/themes/colors_extension.dart';
+import 'package:piehme_cup_flutter/themes/main_colors_extension.dart';
 
 class ScoresPanel extends StatelessWidget {
   final BaseLineupProvider provider;
@@ -9,7 +9,7 @@ class ScoresPanel extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final Color topBar = Theme.of(context).extension<ColorsExtension>()!.topGradient;
+    final Color topBar = Theme.of(context).extension<MainColorsExtension>()!.topGradient;
 
     return Container(
       // decoration: Theme.of(context).brightness == Brightness.dark ? BoxDecoration(

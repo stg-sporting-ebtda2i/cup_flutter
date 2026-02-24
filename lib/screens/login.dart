@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:piehme_cup_flutter/constants/app_colors.dart';
 import 'package:piehme_cup_flutter/dialogs/message.dart';
 import 'package:piehme_cup_flutter/routes/app_routes.dart';
 import 'package:piehme_cup_flutter/themes/backgrounds_extension.dart';
+import 'package:piehme_cup_flutter/themes/states_colors_extension.dart';
 import 'package:piehme_cup_flutter/utils/data_utils.dart';
 import 'package:piehme_cup_flutter/widgets/widgets_button.dart';
 import 'package:piehme_cup_flutter/widgets/widgets_text_field.dart';
@@ -135,7 +135,9 @@ class _LoginPageState extends State<LoginPage>
                             hint: 'Username',
                             icon: Icon(
                               Icons.account_circle_rounded,
-                              color: AppColors.textFieldHint,
+                              color: theme
+                                  .extension<StatesColorsExtension>()!
+                                  .textFieldHint,
                             ),
                             controller: _usernameController,
                             inputType: TextInputType.text,
@@ -145,7 +147,9 @@ class _LoginPageState extends State<LoginPage>
                             hint: 'Password',
                             icon: Icon(
                               Icons.lock,
-                              color: AppColors.textFieldHint,
+                              color: theme
+                                  .extension<StatesColorsExtension>()!
+                                  .textFieldHint,
                             ),
                             controller: _passwordController,
                             inputType: TextInputType.visiblePassword,

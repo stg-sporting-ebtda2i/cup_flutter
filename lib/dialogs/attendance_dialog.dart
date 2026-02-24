@@ -1,15 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:piehme_cup_flutter/constants/app_colors.dart';
 import 'package:piehme_cup_flutter/providers/attendance_provider.dart';
 import 'package:piehme_cup_flutter/services/navigation_service.dart';
+import 'package:piehme_cup_flutter/themes/states_colors_extension.dart';
 import 'package:piehme_cup_flutter/widgets/widgets_button.dart';
 import 'package:piehme_cup_flutter/widgets/widgets_custom_outlined_button.dart';
 import 'package:provider/provider.dart';
 
-void showAttendanceDialog({
-  required BuildContext context,
-}) {
+void showAttendanceDialog({required BuildContext context}) {
   showModalBottomSheet(
     context: context,
     backgroundColor: Colors.transparent,
@@ -27,6 +25,9 @@ class AttendanceBottomSheet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final mainColor = Theme.of(
+      context,
+    ).extension<StatesColorsExtension>()!.mainColor;
     return Container(
       decoration: BoxDecoration(
         color: Colors.grey.shade900,
@@ -61,10 +62,7 @@ class AttendanceBottomSheet extends StatelessWidget {
             padding: EdgeInsets.fromLTRB(24, 0, 24, 12),
             decoration: BoxDecoration(
               border: Border(
-                bottom: BorderSide(
-                  color: Colors.grey.shade800,
-                  width: 1,
-                ),
+                bottom: BorderSide(color: Colors.grey.shade800, width: 1),
               ),
             ),
             child: Row(
@@ -91,86 +89,93 @@ class AttendanceBottomSheet extends StatelessWidget {
           ),
 
           // Events List
-          Consumer<AttendanceProvider>(builder: (context, provider, child) {
-            if (provider.isLoadingLiturgies) {
-              return _buildLoadingState();
-            }
-            if (provider.liturgyNames == null || provider.liturgyNames!.isEmpty) {
-              return _buildEmptyState();
-            }
-            return Container(
-              constraints: BoxConstraints(
-                maxHeight: MediaQuery.of(context).size.height * 0.6,
-              ),
-              child: ListView.builder(
-                padding: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-                shrinkWrap: true,
-                itemCount: provider.liturgyNames?.length,
-                itemBuilder: (context, index) {
-                  return Container(
-                    margin: EdgeInsets.symmetric(vertical: 4),
-                    decoration: BoxDecoration(
-                      color: Colors.grey.shade800,
-                      borderRadius: BorderRadius.circular(12),
-                      border: Border.all(
-                        color: Colors.grey.shade700,
-                        width: 1,
-                      ),
-                    ),
-                    child: Material(
-                      color: Colors.transparent,
-                      child: InkWell(
-                        onTap: () {
-                          Navigator.pop(context);
-                          _pickDate(
-                              selectedEvent: provider.liturgyNames![index]);
-                        },
+          Consumer<AttendanceProvider>(
+            builder: (context, provider, child) {
+              if (provider.isLoadingLiturgies) {
+                return _buildLoadingState();
+              }
+              if (provider.liturgyNames == null ||
+                  provider.liturgyNames!.isEmpty) {
+                return _buildEmptyState();
+              }
+              return Container(
+                constraints: BoxConstraints(
+                  maxHeight: MediaQuery.of(context).size.height * 0.6,
+                ),
+                child: ListView.builder(
+                  padding: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+                  shrinkWrap: true,
+                  itemCount: provider.liturgyNames?.length,
+                  itemBuilder: (context, index) {
+                    return Container(
+                      margin: EdgeInsets.symmetric(vertical: 4),
+                      decoration: BoxDecoration(
+                        color: Colors.grey.shade800,
                         borderRadius: BorderRadius.circular(12),
-                        splashColor: AppColors.brand.withAlpha(51),
-                        highlightColor: AppColors.brand.withAlpha(26),
-                        child: Container(
-                          padding: EdgeInsets.symmetric(
-                              horizontal: 20, vertical: 16),
-                          child: Row(
-                            children: [
-                              Container(
-                                padding: EdgeInsets.all(8),
-                                decoration: BoxDecoration(
-                                  color: AppColors.brand.withAlpha(26),
-                                  shape: BoxShape.circle,
-                                ),
-                                child: Icon(
-                                  Icons.event_available_rounded,
-                                  color: AppColors.brand,
-                                  size: 20,
-                                ),
-                              ),
-                              SizedBox(width: 16),
-                              Expanded(
-                                child: Text(
-                                  provider.liturgyNames![index],
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w600,
-                                    color: Colors.white,
+                        border: Border.all(
+                          color: Colors.grey.shade700,
+                          width: 1,
+                        ),
+                      ),
+                      child: Material(
+                        color: Colors.transparent,
+                        child: InkWell(
+                          onTap: () {
+                            Navigator.pop(context);
+                            _pickDate(
+                              selectedEvent: provider.liturgyNames![index],
+                              mainColor: mainColor
+                            );
+                          },
+                          borderRadius: BorderRadius.circular(12),
+                          splashColor: mainColor.withAlpha(51),
+                          highlightColor: mainColor.withAlpha(26),
+                          child: Container(
+                            padding: EdgeInsets.symmetric(
+                              horizontal: 20,
+                              vertical: 16,
+                            ),
+                            child: Row(
+                              children: [
+                                Container(
+                                  padding: EdgeInsets.all(8),
+                                  decoration: BoxDecoration(
+                                    color: mainColor.withAlpha(26),
+                                    shape: BoxShape.circle,
+                                  ),
+                                  child: Icon(
+                                    Icons.event_available_rounded,
+                                    color: mainColor,
+                                    size: 20,
                                   ),
                                 ),
-                              ),
-                              Icon(
-                                Icons.arrow_forward_ios_rounded,
-                                color: Colors.grey.shade400,
-                                size: 16,
-                              ),
-                            ],
+                                SizedBox(width: 16),
+                                Expanded(
+                                  child: Text(
+                                    provider.liturgyNames![index],
+                                    style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w600,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                ),
+                                Icon(
+                                  Icons.arrow_forward_ios_rounded,
+                                  color: Colors.grey.shade400,
+                                  size: 16,
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                  );
-                },
-              ),
-            );
-          }),
+                    );
+                  },
+                ),
+              );
+            },
+          ),
 
           SizedBox(height: 16),
         ],
@@ -180,6 +185,7 @@ class AttendanceBottomSheet extends StatelessWidget {
 
   Future<void> _pickDate({
     required String selectedEvent,
+    required Color mainColor,
   }) async {
     final DateTime? picked = await showDatePicker(
       context: context,
@@ -190,7 +196,7 @@ class AttendanceBottomSheet extends StatelessWidget {
         return Theme(
           data: ThemeData.dark().copyWith(
             colorScheme: ColorScheme.dark(
-              primary: AppColors.brand,
+              primary: mainColor,
               onPrimary: Colors.black,
               surface: Colors.grey.shade900,
               onSurface: Colors.white,
@@ -203,16 +209,20 @@ class AttendanceBottomSheet extends StatelessWidget {
     );
     if (picked != null) {
       await _showConfirmationDialog(
-          context: NavigationService.navigatorKey.currentState!.context,
-          selectedEvent: selectedEvent,
-          pickedDate: picked);
+        context: NavigationService.navigatorKey.currentState!.context,
+        selectedEvent: selectedEvent,
+        pickedDate: picked,
+        mainColor: mainColor,
+      );
     }
   }
 
-  Future<void> _showConfirmationDialog(
-      {required BuildContext context,
-      required String selectedEvent,
-      required DateTime pickedDate}) async {
+  Future<void> _showConfirmationDialog({
+    required BuildContext context,
+    required String selectedEvent,
+    required DateTime pickedDate,
+    required Color mainColor,
+  }) async {
     final formattedDate = DateFormat('dd/MM/yyyy').format(pickedDate);
     final apiDate = DateFormat('yyyy-MM-dd').format(pickedDate);
 
@@ -273,11 +283,9 @@ class AttendanceBottomSheet extends StatelessWidget {
                     width: double.infinity,
                     padding: EdgeInsets.all(16),
                     decoration: BoxDecoration(
-                      color: AppColors.brand.withAlpha(26),
+                      color: mainColor.withAlpha(26),
                       borderRadius: BorderRadius.circular(12),
-                      border: Border.all(
-                        color: AppColors.brand.withAlpha(77),
-                      ),
+                      border: Border.all(color: mainColor.withAlpha(77)),
                     ),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -287,7 +295,7 @@ class AttendanceBottomSheet extends StatelessWidget {
                           style: TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
-                            color: AppColors.brand,
+                            color: mainColor,
                           ),
                         ),
                         SizedBox(height: 8),
@@ -295,7 +303,7 @@ class AttendanceBottomSheet extends StatelessWidget {
                           children: [
                             Icon(
                               Icons.calendar_today_rounded,
-                              color: AppColors.brand,
+                              color: mainColor,
                               size: 16,
                             ),
                             SizedBox(width: 8),
@@ -319,9 +327,11 @@ class AttendanceBottomSheet extends StatelessWidget {
                     children: [
                       // Cancel Button
                       Expanded(
-                        child: CustomOutlinedButton(onPressed: () {
-                          Navigator.pop(context);
-                        }),
+                        child: CustomOutlinedButton(
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                        ),
                       ),
 
                       SizedBox(width: 12),
@@ -329,16 +339,18 @@ class AttendanceBottomSheet extends StatelessWidget {
                       // Confirm Button
                       Expanded(
                         child: CustomButton(
-                            text: 'Confirm',
-                            onPressed: () async {
-                              await provider.submitAttendance(
-                                  selectedEvent: selectedEvent,
-                                  apiDate: apiDate);
-                              if (context.mounted) {
-                                Navigator.pop(context);
-                              }
-                            },
-                            isLoading: provider.isSubmittingRequest),
+                          text: 'Confirm',
+                          onPressed: () async {
+                            await provider.submitAttendance(
+                              selectedEvent: selectedEvent,
+                              apiDate: apiDate,
+                            );
+                            if (context.mounted) {
+                              Navigator.pop(context);
+                            }
+                          },
+                          isLoading: provider.isSubmittingRequest,
+                        ),
                       ),
                     ],
                   ),

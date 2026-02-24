@@ -1,13 +1,14 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:piehme_cup_flutter/constants/app_colors.dart';
 import 'package:piehme_cup_flutter/dialogs/alert_dialog.dart';
 import 'package:piehme_cup_flutter/providers/buttons_visibility_provider.dart';
 import 'package:piehme_cup_flutter/providers/header_provider.dart';
 import 'package:piehme_cup_flutter/providers/user_provider.dart';
 import 'package:piehme_cup_flutter/routes/app_routes.dart';
 import 'package:piehme_cup_flutter/themes/backgrounds_extension.dart';
-import 'package:piehme_cup_flutter/themes/theme_switcher.dart'; // Add this import
+import 'package:piehme_cup_flutter/themes/main_colors_extension.dart';
+import 'package:piehme_cup_flutter/themes/states_colors_extension.dart';
+import 'package:piehme_cup_flutter/themes/theme_switcher.dart';
 import 'package:piehme_cup_flutter/widgets/animated_list_item.dart';
 import 'package:piehme_cup_flutter/widgets/header.dart';
 import 'package:piehme_cup_flutter/services/auth_service.dart';
@@ -69,25 +70,36 @@ class _MoreOptionsPageState extends State<MoreOptionsPage> {
 
   @override
   Widget build(BuildContext context) {
+    final topGradient = Theme.of(
+      context,
+    ).extension<MainColorsExtension>()!.topGradient;
+    final mainColor = Theme.of(
+      context,
+    ).extension<StatesColorsExtension>()!.textColor;
     final themeSwitcher = Provider.of<ThemeSwitcher>(context);
     final isDark = themeSwitcher.isDarkMode(context);
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.black,
+        backgroundColor: topGradient,
         toolbarHeight: 0,
         elevation: 0,
       ),
       body: Container(
+        padding: EdgeInsets.only(bottom: MediaQuery.heightOf(context) * 0.08),
         decoration: BoxDecoration(
           image: DecorationImage(
-            image: AssetImage(Theme.of(context).extension<BackgroundsExtension>()!.profileBackground),
+            image: AssetImage(
+              Theme.of(
+                context,
+              ).extension<BackgroundsExtension>()!.profileBackground,
+            ),
             fit: BoxFit.cover,
           ),
         ),
         child: Column(
           children: [
-            // Enhanced Header with Theme Toggle
+            // Enhanced Header
             SafeArea(
               child: Container(
                 padding: EdgeInsets.symmetric(vertical: 26),
@@ -95,11 +107,7 @@ class _MoreOptionsPageState extends State<MoreOptionsPage> {
                   gradient: LinearGradient(
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
-                    colors: [
-                      Colors.black87,
-                      Colors.black45,
-                      Colors.transparent,
-                    ],
+                    colors: [topGradient, Colors.transparent],
                   ),
                 ),
                 child: Padding(
@@ -109,7 +117,7 @@ class _MoreOptionsPageState extends State<MoreOptionsPage> {
                     children: [
                       Text(
                         'Profile',
-                        style: const TextStyle(
+                        style: TextStyle(
                           fontSize: 23,
                           color: Colors.white,
                           fontWeight: FontWeight.bold,
@@ -117,28 +125,6 @@ class _MoreOptionsPageState extends State<MoreOptionsPage> {
                       ),
                       Row(
                         children: [
-                          // Theme Toggle Button
-                          Container(
-                            margin: const EdgeInsets.only(right: 8),
-                            decoration: BoxDecoration(
-                              color: Colors.white.withAlpha(26),
-                              borderRadius: BorderRadius.circular(30),
-                              border: Border.all(
-                                color: Colors.white.withAlpha(51),
-                                width: 1,
-                              ),
-                            ),
-                            child: IconButton(
-                              icon: Icon(
-                                isDark ? Icons.light_mode : Icons.dark_mode,
-                                color: Colors.white,
-                                size: 22,
-                              ),
-                              onPressed: () => themeSwitcher.toggleTheme(),
-                              tooltip: isDark ? 'Switch to Light Mode' : 'Switch to Dark Mode',
-                              splashRadius: 24,
-                            ),
-                          ),
                           Header(),
                         ],
                       ),
@@ -164,15 +150,15 @@ class _MoreOptionsPageState extends State<MoreOptionsPage> {
                             decoration: BoxDecoration(
                               gradient: LinearGradient(
                                 colors: [
-                                  Colors.white.withAlpha(38),
-                                  Colors.white.withAlpha(20),
+                                  mainColor.withAlpha(38),
+                                  mainColor.withAlpha(20),
                                 ],
                                 begin: Alignment.topLeft,
                                 end: Alignment.bottomRight,
                               ),
                               borderRadius: BorderRadius.circular(25),
                               border: Border.all(
-                                color: Colors.white.withAlpha(51),
+                                color: mainColor.withAlpha(51),
                                 width: 1,
                               ),
                               boxShadow: [
@@ -195,13 +181,17 @@ class _MoreOptionsPageState extends State<MoreOptionsPage> {
                                         shape: BoxShape.circle,
                                         image: DecorationImage(
                                           image: AssetImage(
-                                            Theme.of(context).extension<BackgroundsExtension>()!.profileBackground,
+                                            Theme.of(context)
+                                                .extension<
+                                                BackgroundsExtension
+                                            >()!
+                                                .profileBackground,
                                           ),
                                           fit: BoxFit.cover,
                                         ),
                                         boxShadow: [
                                           BoxShadow(
-                                            color: AppColors.brandSecondary
+                                            color: mainColor.withAlpha(89)
                                                 .withAlpha(102),
                                             blurRadius: 30,
                                             offset: const Offset(3, 6),
@@ -221,51 +211,49 @@ class _MoreOptionsPageState extends State<MoreOptionsPage> {
                                                 .user
                                                 .imageKey,
                                             fit: BoxFit.cover,
-                                            placeholder: (context, url) =>
+                                            placeholder:
+                                                (context, url) =>
                                                 Container(
                                                   decoration:
                                                   BoxDecoration(
-                                                    color: Colors
-                                                        .grey[800],
-                                                    shape: BoxShape
-                                                        .circle,
+                                                    color:
+                                                    Colors.grey[800],
+                                                    shape: BoxShape.circle,
                                                   ),
                                                   child: const Center(
                                                     child:
                                                     CircularProgressIndicator(
-                                                      color:
-                                                      Colors.blue,
+                                                      color: Colors.blue,
                                                     ),
                                                   ),
                                                 ),
-                                            errorWidget:
-                                                (
+                                            errorWidget: (
                                                 context,
                                                 url,
                                                 error,
-                                                ) => Container(
-                                              decoration:
-                                              BoxDecoration(
-                                                color: Colors
-                                                    .grey[800],
-                                                shape: BoxShape
-                                                    .circle,
-                                              ),
-                                              child: const Icon(
-                                                Icons.person_rounded,
-                                                color: Colors.white,
-                                                size: 40,
-                                              ),
-                                            ),
+                                                ) =>
+                                                Container(
+                                                  decoration:
+                                                  BoxDecoration(
+                                                    color:
+                                                    Colors.grey[800],
+                                                    shape: BoxShape.circle,
+                                                  ),
+                                                  child: Icon(
+                                                    Icons.person_rounded,
+                                                    color: mainColor,
+                                                    size: 40,
+                                                  ),
+                                                ),
                                           )
                                               : Container(
                                             decoration: BoxDecoration(
                                               color: Colors.grey[800],
                                               shape: BoxShape.circle,
                                             ),
-                                            child: const Icon(
+                                            child: Icon(
                                               Icons.person_rounded,
-                                              color: Colors.white,
+                                              color: mainColor,
                                               size: 40,
                                             ),
                                           ),
@@ -279,9 +267,9 @@ class _MoreOptionsPageState extends State<MoreOptionsPage> {
                                             shape: BoxShape.circle,
                                             color: Colors.black.withAlpha(153),
                                           ),
-                                          child: const Center(
+                                          child: Center(
                                             child: CircularProgressIndicator(
-                                              color: Colors.white,
+                                              color: mainColor,
                                             ),
                                           ),
                                         ),
@@ -293,8 +281,8 @@ class _MoreOptionsPageState extends State<MoreOptionsPage> {
                                 // User Name
                                 Text(
                                   userProvider.user.name,
-                                  style: const TextStyle(
-                                    color: Colors.white,
+                                  style: TextStyle(
+                                    color: mainColor,
                                     fontSize: 22,
                                     fontWeight: FontWeight.bold,
                                   ),
@@ -314,15 +302,15 @@ class _MoreOptionsPageState extends State<MoreOptionsPage> {
                             decoration: BoxDecoration(
                               gradient: LinearGradient(
                                 colors: [
-                                  Colors.white.withAlpha(31),
-                                  Colors.white.withAlpha(15),
+                                  mainColor.withAlpha(31),
+                                  mainColor.withAlpha(15),
                                 ],
                                 begin: Alignment.topLeft,
                                 end: Alignment.bottomRight,
                               ),
                               borderRadius: BorderRadius.circular(20),
                               border: Border.all(
-                                color: Colors.white.withAlpha(38),
+                                color: mainColor.withAlpha(38),
                                 width: 1,
                               ),
                             ),
@@ -340,7 +328,7 @@ class _MoreOptionsPageState extends State<MoreOptionsPage> {
                                     Text(
                                       'About The App',
                                       style: TextStyle(
-                                        color: Colors.white,
+                                        color: mainColor,
                                         fontSize: 18,
                                         fontWeight: FontWeight.bold,
                                       ),
@@ -351,28 +339,32 @@ class _MoreOptionsPageState extends State<MoreOptionsPage> {
                                 _buildAboutRow(
                                   icon: Icons.flag_rounded,
                                   text: 'The Road to Golgotha',
+                                  mainColor: mainColor,
                                 ),
                                 const SizedBox(height: 12),
                                 _buildAboutRow(
                                   icon: Icons.group_rounded,
-                                  text: 'St. George Sporting',
+                                  text: 'St. George Church Sporting',
+                                  mainColor: mainColor,
                                 ),
                                 const SizedBox(height: 12),
                                 _buildAboutRow(
                                   icon: Icons.location_pin,
                                   text: 'Alexandria, Egypt',
+                                  mainColor: mainColor,
                                 ),
                                 const SizedBox(height: 12),
                                 _buildAboutRow(
                                   icon: Icons.phone_android_rounded,
                                   text: 'Version 3.1.0 • 2026',
+                                  mainColor: mainColor,
                                 ),
                               ],
                             ),
                           ),
                         ),
 
-                        // Action Buttons Section
+                        // Action Buttons Section (Now includes Theme Toggle)
                         AnimatedListItem(
                           index: 2,
                           child: Container(
@@ -380,15 +372,15 @@ class _MoreOptionsPageState extends State<MoreOptionsPage> {
                             decoration: BoxDecoration(
                               gradient: LinearGradient(
                                 colors: [
-                                  Colors.white.withAlpha(31),
-                                  Colors.white.withAlpha(15),
+                                  mainColor.withAlpha(31),
+                                  mainColor.withAlpha(15),
                                 ],
                                 begin: Alignment.topLeft,
                                 end: Alignment.bottomRight,
                               ),
                               borderRadius: BorderRadius.circular(20),
                               border: Border.all(
-                                color: Colors.white.withAlpha(38),
+                                color: mainColor.withAlpha(38),
                                 width: 1,
                               ),
                               boxShadow: [
@@ -401,6 +393,26 @@ class _MoreOptionsPageState extends State<MoreOptionsPage> {
                             ),
                             child: Column(
                               children: [
+                                // Theme Toggle Button (Now inside the box)
+                                _buildThemeToggleButton(
+                                  icon: isDark ? Icons.light_mode_rounded : Icons.dark_mode_rounded,
+                                  title: isDark ? 'Switch to Light Mode' : 'Switch to Dark Mode',
+                                  subtitle: 'Change app appearance',
+                                  onTap: () => themeSwitcher.toggleTheme(),
+                                  color: mainColor,
+                                  mainColor: mainColor,
+                                ),
+
+                                const SizedBox(height: 16),
+
+                                // Divider
+                                Container(
+                                  height: 1,
+                                  color: mainColor.withAlpha(26),
+                                ),
+
+                                const SizedBox(height: 16),
+
                                 // Logout Button
                                 _buildEnhancedProfileButton(
                                   icon: Icons.logout_rounded,
@@ -408,7 +420,9 @@ class _MoreOptionsPageState extends State<MoreOptionsPage> {
                                   subtitle: 'Sign out of your account',
                                   onTap: _logout,
                                   color: Colors.red.shade400,
+                                  mainColor: mainColor,
                                 ),
+
                                 if (!_confirmed) const SizedBox(height: 16),
 
                                 // Delete Account Button
@@ -419,6 +433,7 @@ class _MoreOptionsPageState extends State<MoreOptionsPage> {
                                     subtitle: 'Permanently delete your account',
                                     onTap: _delete,
                                     color: Colors.red.shade700,
+                                    mainColor: mainColor,
                                   ),
                               ],
                             ),
@@ -436,7 +451,7 @@ class _MoreOptionsPageState extends State<MoreOptionsPage> {
                                 Text(
                                   'The Road to Golgotha',
                                   style: TextStyle(
-                                    color: Colors.white.withAlpha(204),
+                                    color: mainColor.withAlpha(204),
                                     fontSize: 14,
                                     fontWeight: FontWeight.w600,
                                   ),
@@ -445,7 +460,7 @@ class _MoreOptionsPageState extends State<MoreOptionsPage> {
                                 Text(
                                   'St. George Sporting, Alex.',
                                   style: TextStyle(
-                                    color: Colors.white.withAlpha(153),
+                                    color: mainColor.withAlpha(153),
                                     fontSize: 12,
                                   ),
                                 ),
@@ -465,7 +480,11 @@ class _MoreOptionsPageState extends State<MoreOptionsPage> {
     );
   }
 
-  Widget _buildAboutRow({required IconData icon, required String text}) {
+  Widget _buildAboutRow({
+    required IconData icon,
+    required String text,
+    required Color mainColor,
+  }) {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -475,7 +494,7 @@ class _MoreOptionsPageState extends State<MoreOptionsPage> {
           child: Text(
             text,
             style: TextStyle(
-              color: Colors.white.withAlpha(230),
+              color: mainColor.withAlpha(230),
               fontSize: 14,
               fontWeight: FontWeight.w500,
             ),
@@ -485,12 +504,13 @@ class _MoreOptionsPageState extends State<MoreOptionsPage> {
     );
   }
 
-  Widget _buildEnhancedProfileButton({
+  Widget _buildThemeToggleButton({
     required IconData icon,
     required String title,
     required String subtitle,
     required VoidCallback onTap,
     required Color color,
+    required Color mainColor,
   }) {
     return Material(
       color: Colors.transparent,
@@ -503,7 +523,7 @@ class _MoreOptionsPageState extends State<MoreOptionsPage> {
           padding: const EdgeInsets.all(18),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(16),
-            border: Border.all(color: Colors.white.withAlpha(26), width: 1),
+            border: Border.all(color: mainColor.withAlpha(26), width: 1),
             gradient: LinearGradient(
               colors: [color.withAlpha(26), color.withAlpha(13)],
               begin: Alignment.topLeft,
@@ -528,8 +548,8 @@ class _MoreOptionsPageState extends State<MoreOptionsPage> {
                   children: [
                     Text(
                       title,
-                      style: const TextStyle(
-                        color: Colors.white,
+                      style: TextStyle(
+                        color: mainColor,
                         fontSize: 16,
                         fontWeight: FontWeight.w600,
                       ),
@@ -538,7 +558,7 @@ class _MoreOptionsPageState extends State<MoreOptionsPage> {
                     Text(
                       subtitle,
                       style: TextStyle(
-                        color: Colors.white.withAlpha(179),
+                        color: mainColor.withAlpha(179),
                         fontSize: 12,
                       ),
                     ),
@@ -547,7 +567,80 @@ class _MoreOptionsPageState extends State<MoreOptionsPage> {
               ),
               Icon(
                 Icons.arrow_forward_ios_rounded,
-                color: Colors.white.withAlpha(128),
+                color: mainColor.withAlpha(128),
+                size: 16,
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildEnhancedProfileButton({
+    required IconData icon,
+    required String title,
+    required String subtitle,
+    required VoidCallback onTap,
+    required Color color,
+    required Color mainColor,
+  }) {
+    return Material(
+      color: Colors.transparent,
+      child: InkWell(
+        onTap: onTap,
+        borderRadius: BorderRadius.circular(16),
+        splashColor: color.withAlpha(51),
+        highlightColor: color.withAlpha(26),
+        child: Container(
+          padding: const EdgeInsets.all(18),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(16),
+            border: Border.all(color: mainColor.withAlpha(26), width: 1),
+            gradient: LinearGradient(
+              colors: [color.withAlpha(26), color.withAlpha(13)],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+            ),
+          ),
+          child: Row(
+            children: [
+              Container(
+                padding: const EdgeInsets.all(12),
+                decoration: BoxDecoration(
+                  color: color.withAlpha(38),
+                  shape: BoxShape.circle,
+                  border: Border.all(color: color.withAlpha(77), width: 1.5),
+                ),
+                child: Icon(icon, color: color, size: 22),
+              ),
+              const SizedBox(width: 16),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      title,
+                      style: TextStyle(
+                        color: mainColor,
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                    const SizedBox(height: 4),
+                    Text(
+                      subtitle,
+                      style: TextStyle(
+                        color: mainColor.withAlpha(179),
+                        fontSize: 12,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Icon(
+                Icons.arrow_forward_ios_rounded,
+                color: mainColor.withAlpha(128),
                 size: 16,
               ),
             ],

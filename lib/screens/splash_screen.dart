@@ -5,7 +5,7 @@ import 'package:lottie/lottie.dart';
 import 'package:piehme_cup_flutter/routes/app_routes.dart';
 import 'package:piehme_cup_flutter/services/auth_service.dart';
 import 'package:piehme_cup_flutter/themes/backgrounds_extension.dart';
-import 'package:piehme_cup_flutter/themes/colors_extension.dart';
+import 'package:piehme_cup_flutter/themes/main_colors_extension.dart';
 import 'package:piehme_cup_flutter/utils/data_utils.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -64,7 +64,7 @@ class SplashScreenState extends State<SplashScreen> {
                       textStyle: GoogleFonts.leagueSpartan(
                         fontSize: 24,
                         color: theme
-                            .extension<ColorsExtension>()!
+                            .extension<MainColorsExtension>()!
                             .splashScreenTextColor,
                         fontWeight: FontWeight.bold,
                       ),

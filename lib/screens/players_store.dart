@@ -3,6 +3,8 @@ import 'package:piehme_cup_flutter/providers/lineup_provider.dart';
 import 'package:piehme_cup_flutter/providers/players_store_provider.dart';
 import 'package:piehme_cup_flutter/services/players_service.dart';
 import 'package:piehme_cup_flutter/states/loading_state.dart';
+import 'package:piehme_cup_flutter/themes/gradients_extension.dart';
+import 'package:piehme_cup_flutter/themes/main_colors_extension.dart';
 import 'package:piehme_cup_flutter/utils/action_utils.dart';
 import 'package:piehme_cup_flutter/widgets/animated_list_item.dart';
 import 'package:piehme_cup_flutter/widgets/header.dart';
@@ -21,9 +23,11 @@ class PlayersStorePage extends StatefulWidget {
 class _PlayersStorePageState extends State<PlayersStorePage> {
   @override
   Widget build(BuildContext context) {
+    final topGradient = Theme.of(context).extension<MainColorsExtension>()!.topGradient;
+
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.black,
+        backgroundColor: topGradient,
         toolbarHeight: 0,
         elevation: 0,
       ),
@@ -32,13 +36,7 @@ class _PlayersStorePageState extends State<PlayersStorePage> {
           gradient: LinearGradient(
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
-            colors: [
-              Color(0xFF054127),
-              Color(0xFF032C28),
-              Color(0xFF021C29),
-              Color(0xFF250D1B),
-              Color(0xFF50121F),
-            ],
+            colors: Theme.of(context).extension<GradientsExtension>()!.store,
           ),
         ),
         child: Column(
@@ -51,8 +49,7 @@ class _PlayersStorePageState extends State<PlayersStorePage> {
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
                     colors: [
-                      Colors.black87,
-                      Colors.black45,
+                      topGradient,
                       Colors.transparent,
                     ],
                   ),

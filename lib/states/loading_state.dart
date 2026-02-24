@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:piehme_cup_flutter/themes/states_colors_extension.dart';
 
 class LoadingState extends StatelessWidget {
   final IconData iconData;
@@ -13,6 +14,8 @@ class LoadingState extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final color = Theme.of(context).extension<StatesColorsExtension>()!.textColor;
+
     return Expanded(
       child: Center(
         child: Column(
@@ -23,12 +26,12 @@ class LoadingState extends StatelessWidget {
               width: 80,
               height: 80,
               decoration: BoxDecoration(
-                color: Colors.white.withAlpha(26),
+                color: color.withAlpha(26),
                 shape: BoxShape.circle,
               ),
               child: Icon(
                 iconData,
-                color: Colors.white.withAlpha(179),
+                color: color.withAlpha(179),
                 size: 30,
               ),
             ),
@@ -39,7 +42,7 @@ class LoadingState extends StatelessWidget {
               title,
               style: TextStyle(
                 fontSize: 20,
-                color: Colors.white,
+                color: color,
                 fontWeight: FontWeight.w600,
               ),
             ),
@@ -49,7 +52,7 @@ class LoadingState extends StatelessWidget {
               subtitle,
               style: TextStyle(
                 fontSize: 14,
-                color: Colors.white.withAlpha(179),
+                color: color.withAlpha(179),
               ),
             ),
           ],

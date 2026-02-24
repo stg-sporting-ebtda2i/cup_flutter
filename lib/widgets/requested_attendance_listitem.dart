@@ -29,9 +29,9 @@ class RequestedAttendanceListItem extends StatelessWidget {
             offset: Offset(0, 4),
             spreadRadius: 1,
           ),
-          if (isApproved)
+          if (!isApproved)
             BoxShadow(
-              color: Colors.green.withAlpha(51),
+              color: Colors.blue.withAlpha(51),
               blurRadius: 8,
               spreadRadius: 1,
             ),
@@ -215,11 +215,11 @@ class RequestedAttendanceListItem extends StatelessWidget {
   }
 
   Color _getApprovedDarkColor() {
-    return Colors.green.withAlpha(13);
+    return Colors.grey.shade900.withAlpha(204);
   }
 
   Color _getPendingDarkColor() {
-    return Colors.orange.withAlpha(13);
+    return Colors.grey.shade900.withAlpha(125);
   }
 
   String _formatDate(String date) {

@@ -3,6 +3,9 @@ import 'package:piehme_cup_flutter/dialogs/message.dart';
 import 'package:piehme_cup_flutter/models/quiz.dart';
 import 'package:piehme_cup_flutter/providers/header_provider.dart';
 import 'package:piehme_cup_flutter/providers/quizzes_provider.dart';
+import 'package:piehme_cup_flutter/themes/gradients_extension.dart';
+import 'package:piehme_cup_flutter/themes/main_colors_extension.dart';
+import 'package:piehme_cup_flutter/themes/states_colors_extension.dart';
 import 'package:piehme_cup_flutter/widgets/header.dart';
 import 'package:piehme_cup_flutter/widgets/quiz_question_listitem.dart';
 import 'package:piehme_cup_flutter/widgets/widgets_button.dart';
@@ -64,38 +67,50 @@ class _QuizPageState extends State<QuizPage> {
 
   @override
   Widget build(BuildContext context) {
+    final topGradient = Theme.of(
+      context,
+    ).extension<MainColorsExtension>()!.topGradient;
+    List<Color> background = Theme.of(
+      context,
+    ).extension<GradientsExtension>()!.solveQuiz;
+    final textColor = Theme.of(
+      context,
+    ).extension<StatesColorsExtension>()!.textColor;
     return Consumer2<QuizzesProvider, HeaderProvider>(
       builder: (context, provider, header, child) {
         Quiz quiz = provider.currentQuiz;
 
         if (provider.isLoadingQuiz) {
-          return _buildLoadingState();
+          return _buildLoadingState(topGradient, textColor, background);
         }
 
         if (!provider.isLoadingQuiz && quiz.questions.isEmpty) {
-          return _buildErrorState();
+          return _buildErrorState(topGradient, textColor, background);
         }
-        return _buildQuestionsState(provider, header);
+        return _buildQuestionsState(provider, header, topGradient);
       },
     );
   }
 
-  Widget _buildQuestionsState(QuizzesProvider provider, HeaderProvider header) {
+  Widget _buildQuestionsState(
+    QuizzesProvider provider,
+    HeaderProvider header,
+    Color topGradient,
+  ) {
     Quiz quiz = provider.currentQuiz;
+
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.black,
+        backgroundColor: topGradient,
         toolbarHeight: 0,
         elevation: 0,
       ),
       body: Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            colors: [
-              Color(0xFF1a2a3a),
-              Color(0xFF0d1b2a),
-              Color(0xFF050a14),
-            ],
+            colors: Theme.of(
+              context,
+            ).extension<GradientsExtension>()!.quizzesList,
             begin: Alignment.topRight,
             end: Alignment.bottomLeft,
           ),
@@ -110,11 +125,7 @@ class _QuizPageState extends State<QuizPage> {
                   gradient: LinearGradient(
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
-                    colors: [
-                      Colors.black.withAlpha(204),
-                      Colors.black.withAlpha(102),
-                      Colors.transparent,
-                    ],
+                    colors: [topGradient, Colors.transparent],
                   ),
                 ),
                 child: Row(
@@ -231,21 +242,21 @@ class _QuizPageState extends State<QuizPage> {
     );
   }
 
-  Widget _buildLoadingState() {
+  Widget _buildLoadingState(
+    Color topGradient,
+    Color textColor,
+    List<Color> background,
+  ) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.black,
+        backgroundColor: topGradient,
         toolbarHeight: 0,
         elevation: 0,
       ),
       body: Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            colors: [
-              Color(0xFF1a2a3a),
-              Color(0xFF0d1b2a),
-              Color(0xFF050a14),
-            ],
+            colors: background,
             begin: Alignment.topRight,
             end: Alignment.bottomLeft,
           ),
@@ -311,12 +322,12 @@ class _QuizPageState extends State<QuizPage> {
                       width: 80,
                       height: 80,
                       decoration: BoxDecoration(
-                        color: Colors.white.withAlpha(26),
+                        color: textColor.withAlpha(26),
                         shape: BoxShape.circle,
                       ),
                       child: Icon(
                         Icons.quiz_rounded,
-                        color: Colors.white.withAlpha(179),
+                        color: textColor.withAlpha(179),
                         size: 30,
                       ),
                     ),
@@ -327,7 +338,7 @@ class _QuizPageState extends State<QuizPage> {
                       'Loading Quiz...',
                       style: TextStyle(
                         fontSize: 20,
-                        color: Colors.white,
+                        color: textColor,
                         fontWeight: FontWeight.w600,
                       ),
                     ),
@@ -337,7 +348,7 @@ class _QuizPageState extends State<QuizPage> {
                       'Getting your questions ready',
                       style: TextStyle(
                         fontSize: 14,
-                        color: Colors.white.withAlpha(179),
+                        color: textColor.withAlpha(179),
                       ),
                     ),
                   ],
@@ -350,21 +361,21 @@ class _QuizPageState extends State<QuizPage> {
     );
   }
 
-  Widget _buildErrorState() {
+  Widget _buildErrorState(
+    Color topGradient,
+    Color textColor,
+    List<Color> background,
+  ) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.black,
+        backgroundColor: topGradient,
         toolbarHeight: 0,
         elevation: 0,
       ),
       body: Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            colors: [
-              Color(0xFF1a2a3a),
-              Color(0xFF0d1b2a),
-              Color(0xFF050a14),
-            ],
+            colors: background,
             begin: Alignment.topRight,
             end: Alignment.bottomLeft,
           ),
@@ -379,11 +390,7 @@ class _QuizPageState extends State<QuizPage> {
                   gradient: LinearGradient(
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
-                    colors: [
-                      Colors.black.withAlpha(204),
-                      Colors.black.withAlpha(102),
-                      Colors.transparent,
-                    ],
+                    colors: [topGradient, Colors.transparent],
                   ),
                 ),
                 child: Row(
@@ -449,7 +456,7 @@ class _QuizPageState extends State<QuizPage> {
                         'Quiz Not Available',
                         style: TextStyle(
                           fontSize: 24,
-                          color: Colors.white,
+                          color: textColor,
                           fontWeight: FontWeight.bold,
                         ),
                         textAlign: TextAlign.center,
@@ -461,7 +468,7 @@ class _QuizPageState extends State<QuizPage> {
                         'We couldn\'t load the quiz. Please check your connection and try again.',
                         style: TextStyle(
                           fontSize: 16,
-                          color: Colors.white.withAlpha(179),
+                          color: textColor.withAlpha(179),
                           height: 1.5,
                         ),
                         textAlign: TextAlign.center,
@@ -476,7 +483,9 @@ class _QuizPageState extends State<QuizPage> {
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.blue.shade600,
                             padding: EdgeInsets.symmetric(
-                                vertical: 16, horizontal: 24),
+                              vertical: 16,
+                              horizontal: 24,
+                            ),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(12),
                             ),
@@ -493,9 +502,10 @@ class _QuizPageState extends State<QuizPage> {
                               Text(
                                 'Try Again',
                                 style: TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w600,
-                                    color: Colors.white),
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w600,
+                                  color: Colors.white,
+                                ),
                               ),
                             ],
                           ),
@@ -572,7 +582,9 @@ class _QuizPageState extends State<QuizPage> {
                       border: isCurrent
                           ? Border.all(color: Colors.blue.shade300, width: 3)
                           : Border.all(
-                              color: Colors.white.withAlpha(77), width: 1),
+                              color: Colors.white.withAlpha(77),
+                              width: 1,
+                            ),
                       boxShadow: isCurrent
                           ? [
                               BoxShadow(

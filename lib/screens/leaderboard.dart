@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:piehme_cup_flutter/constants/app_colors.dart';
 import 'package:piehme_cup_flutter/providers/leaderboard_provider.dart';
 import 'package:piehme_cup_flutter/providers/user_provider.dart';
 import 'package:piehme_cup_flutter/states/empty_state.dart';
 import 'package:piehme_cup_flutter/states/loading_state.dart';
 import 'package:piehme_cup_flutter/themes/backgrounds_extension.dart';
+import 'package:piehme_cup_flutter/themes/main_colors_extension.dart';
+import 'package:piehme_cup_flutter/themes/states_colors_extension.dart';
 import 'package:piehme_cup_flutter/widgets/animated_list_item.dart';
 import 'package:piehme_cup_flutter/widgets/header.dart';
 import 'package:piehme_cup_flutter/widgets/leaderboard_listitem.dart';
@@ -20,21 +21,31 @@ class Leaderboard extends StatefulWidget {
 class _LeaderboardState extends State<Leaderboard> {
   @override
   Widget build(BuildContext context) {
+    final topGradient = Theme.of(
+      context,
+    ).extension<MainColorsExtension>()!.topGradient;
     return Consumer2<LeaderboardProvider, UserProvider>(
-        builder: (context, provider, userProvider, child) {
-      return Scaffold(
+      builder: (context, provider, userProvider, child) {
+        return Scaffold(
           appBar: AppBar(
-            backgroundColor: Colors.black,
+            backgroundColor: topGradient,
             toolbarHeight: 0,
             elevation: 0,
           ),
           body: Container(
+            padding: EdgeInsets.only(
+              bottom: MediaQuery.heightOf(context) * 0.08,
+            ),
             decoration: BoxDecoration(
-                image: DecorationImage(
-              fit: BoxFit.cover,
-              image:
-                  AssetImage(Theme.of(context).extension<BackgroundsExtension>()!.leaderboardBackground),
-            )),
+              image: DecorationImage(
+                fit: BoxFit.cover,
+                image: AssetImage(
+                  Theme.of(
+                    context,
+                  ).extension<BackgroundsExtension>()!.leaderboardBackground,
+                ),
+              ),
+            ),
             child: Column(
               children: [
                 SafeArea(
@@ -44,11 +55,7 @@ class _LeaderboardState extends State<Leaderboard> {
                       gradient: LinearGradient(
                         begin: Alignment.topCenter,
                         end: Alignment.bottomCenter,
-                        colors: [
-                          Colors.black87,
-                          Colors.black45,
-                          Colors.transparent,
-                        ],
+                        colors: [topGradient, Colors.transparent],
                       ),
                     ),
                     child: Padding(
@@ -75,26 +82,30 @@ class _LeaderboardState extends State<Leaderboard> {
                     builder: (context) {
                       if (provider.isLoading && provider.leaderboard.isEmpty) {
                         return LoadingState(
-                            iconData: Icons.leaderboard_rounded,
-                            title: "Loading Leaderboard...",
-                            subtitle: 'Getting the latest rankings');
+                          iconData: Icons.leaderboard_rounded,
+                          title: "Loading Leaderboard...",
+                          subtitle: 'Getting the latest rankings',
+                        );
                       }
                       return RefreshIndicator(
                         onRefresh: () => context
                             .read<LeaderboardProvider>()
                             .loadLeaderboard(),
                         color: Colors.black,
-                        backgroundColor: AppColors.brand,
+                        backgroundColor: Theme.of(
+                          context,
+                        ).extension<StatesColorsExtension>()!.mainColor,
                         child: provider.leaderboard.isEmpty
                             ? CustomScrollView(
                                 slivers: [
                                   SliverToBoxAdapter(
                                     child: EmptyState(
-                                        iconData: Icons.leaderboard_rounded,
-                                        title: 'No Rankings Yet',
-                                        subtitle:
-                                            'Take the first spot on the podium'),
-                                  )
+                                      iconData: Icons.leaderboard_rounded,
+                                      title: 'No Rankings Yet',
+                                      subtitle:
+                                          'Take the first spot on the podium',
+                                    ),
+                                  ),
                                 ],
                               )
                             : ListView.builder(
@@ -104,10 +115,12 @@ class _LeaderboardState extends State<Leaderboard> {
                                   return AnimatedListItem(
                                     index: index,
                                     child: LeaderboardListItem(
-                                        current: userProvider.user.id ==
-                                            provider.leaderboard[index].id,
-                                        user: provider.leaderboard[index],
-                                        index: index + 1),
+                                      current:
+                                          userProvider.user.id ==
+                                          provider.leaderboard[index].id,
+                                      user: provider.leaderboard[index],
+                                      index: index + 1,
+                                    ),
                                   );
                                 },
                               ),
@@ -117,7 +130,9 @@ class _LeaderboardState extends State<Leaderboard> {
                 ),
               ],
             ),
-          ));
-    });
+          ),
+        );
+      },
+    );
   }
 }

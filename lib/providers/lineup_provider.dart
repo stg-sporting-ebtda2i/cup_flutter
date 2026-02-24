@@ -30,9 +30,18 @@ class LineupProvider extends BaseLineupProvider {
     _avgRating = 0;
     _maxRating = 0;
     _lineupRating = 0;
-    List<int> stats = await LeaderboardService.getStats();
-    _lineup = await PlayersService.getLineup();
-    _user = await UsersService.getUserIcon();
+
+    final results = await Future.wait([
+      LeaderboardService.getStats(),
+      PlayersService.getLineup(),
+      UsersService.getUserIcon(),
+    ]);
+
+    // Extract results in the same order
+    List<int> stats = results[0] as List<int>;
+    _lineup = results[1] as List<Player>;
+    _user = results[2] as User;
+
     resetAddedCards();
     _avgRating = stats[0];
     _maxRating = stats[1];

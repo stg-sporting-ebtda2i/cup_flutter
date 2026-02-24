@@ -26,7 +26,7 @@ class _PositionsStorePageState extends State<PositionsStorePage> {
     lineupProvider = Provider.of<LineupProvider>(context);
 
     return Container(
-      color: Colors.black87,
+      // color: Colors.black87,
       padding: const EdgeInsets.only(top: 20),
       child: Column(
         mainAxisSize: MainAxisSize.min,

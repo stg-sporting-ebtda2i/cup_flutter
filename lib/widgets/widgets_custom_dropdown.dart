@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:piehme_cup_flutter/constants/app_colors.dart';
+import 'package:piehme_cup_flutter/themes/states_colors_extension.dart';
 
 class CustomDropdownMenu extends StatelessWidget {
   final List<String> items;
@@ -17,11 +17,21 @@ class CustomDropdownMenu extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final mainColor = Theme.of(
+      context,
+    ).extension<StatesColorsExtension>()!.mainColor;
+    final textFieldHint = Theme.of(
+      context,
+    ).extension<StatesColorsExtension>()!.textFieldHint;
+    final textFieldBackground = Theme.of(
+      context,
+    ).extension<StatesColorsExtension>()!.textFieldBackground;
+    
     return TextSelectionTheme(
       data: TextSelectionThemeData(
-        selectionColor: AppColors.brand.withAlpha(77),
-        selectionHandleColor: AppColors.brand,
-        cursorColor: AppColors.brand,
+        selectionColor: mainColor.withAlpha(77),
+        selectionHandleColor: mainColor,
+        cursorColor: mainColor,
       ),
       child: DropdownMenu<String>(
         dropdownMenuEntries: items.map((String item) {
@@ -47,38 +57,38 @@ class CustomDropdownMenu extends StatelessWidget {
               ),
             ),
             side: WidgetStateProperty.all(
-              BorderSide(color: AppColors.textFieldHint),
+              BorderSide(color: textFieldHint),
             ),
         ),
         inputDecorationTheme: InputDecorationTheme(
           contentPadding:
               const EdgeInsets.symmetric(vertical: 15, horizontal: 16),
           filled: true,
-          fillColor: AppColors.textFieldBackground,
+          fillColor: textFieldBackground,
           labelStyle: TextStyle(
             fontSize: 18,
-            color: AppColors.textFieldHint,
+            color: textFieldHint,
             fontFamily: 'Dubai',
           ),
           floatingLabelStyle: TextStyle(
             fontSize: 18,
-            color: AppColors.brand,
+            color: mainColor,
             fontFamily: 'Dubai',
           ),
           hintStyle: TextStyle(
             fontSize: 20,
-            color: AppColors.textFieldHint,
+            color: textFieldHint,
             fontFamily: 'Dubai',
           ),
-          prefixIconColor: AppColors.textFieldHint,
+          prefixIconColor: textFieldHint,
           // Borders to match CustomTextField
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(12),
-            borderSide: BorderSide(color: AppColors.textFieldHint),
+            borderSide: BorderSide(color: textFieldHint),
           ),
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(12),
-            borderSide: BorderSide(color: AppColors.brand, width: 1),
+            borderSide: BorderSide(color: mainColor, width: 1),
           ),
           errorBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(12),
@@ -86,7 +96,7 @@ class CustomDropdownMenu extends StatelessWidget {
           ),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(12),
-            borderSide: BorderSide(color: AppColors.textFieldHint),
+            borderSide: BorderSide(color: textFieldHint),
           ),
         ),
         onSelected: onSelected,

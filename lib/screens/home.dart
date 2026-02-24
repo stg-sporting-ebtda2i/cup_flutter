@@ -1,10 +1,9 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:piehme_cup_flutter/constants/app_colors.dart';
 import 'package:piehme_cup_flutter/providers/buttons_visibility_provider.dart';
 import 'package:piehme_cup_flutter/screens/requested_attendance_screen.dart';
-import 'package:piehme_cup_flutter/themes/colors_extension.dart';
+import 'package:piehme_cup_flutter/themes/main_colors_extension.dart';
 import 'package:provider/provider.dart';
 import 'show_quizzes_list.dart';
 import 'lineup.dart';
@@ -77,10 +76,10 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
 
   @override
   Widget build(BuildContext context) {
-    final colors = Theme.of(context).extension<ColorsExtension>();
+    final colors = Theme.of(context).extension<MainColorsExtension>();
     final Color navBarForeground = colors?.bottomNavBarForeground ?? Colors.grey;
-    final Color navBarSelected = colors?.bottomNavBarSelected ?? AppColors.brand;
-    final Color navBarColor = colors?.bottomNavBarBackground ?? AppColors.brand;
+    final Color navBarSelected = colors?.bottomNavBarSelected ?? Colors.greenAccent;
+    final Color navBarColor = colors?.bottomNavBarBackground ?? Colors.greenAccent;
 
     final glow = [
       Shadow(color: navBarSelected.withAlpha(200), blurRadius: 8),

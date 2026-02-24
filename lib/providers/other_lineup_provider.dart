@@ -34,9 +34,16 @@ class OtherLineupProvider extends BaseLineupProvider {
     await Loading.show(() async {
       _avgRating = 0;
       _maxRating = 0;
-      List<int> stats = await LeaderboardService.getStats();
-      _lineup = await PlayersService.getLineupById(userId);
-      _user = await UsersService.getOtherUserIcon(userId);
+
+      final results = await Future.wait([
+      LeaderboardService.getStats(),
+      PlayersService.getLineupById(userId),
+      UsersService.getOtherUserIcon(userId)
+      ]);
+      List<int> stats = results[0] as List<int>;
+      _lineup = results[1] as List<Player>;
+      _user = results[2] as User;
+
       resetAddedCards();
       _avgRating = stats[0];
       _maxRating = stats[1];

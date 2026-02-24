@@ -3,7 +3,7 @@ import 'package:piehme_cup_flutter/providers/base_lineup_provider.dart';
 import 'package:piehme_cup_flutter/providers/lineup_provider.dart';
 import 'package:piehme_cup_flutter/providers/other_lineup_provider.dart';
 import 'package:piehme_cup_flutter/themes/backgrounds_extension.dart';
-import 'package:piehme_cup_flutter/themes/colors_extension.dart';
+import 'package:piehme_cup_flutter/themes/main_colors_extension.dart';
 import 'package:piehme_cup_flutter/widgets/lineup_scores_panel.dart';
 import 'package:provider/provider.dart';
 import '../widgets/lineup_cards.dart';
@@ -18,7 +18,7 @@ class LineupPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext c) {
-    final Color topBar = Theme.of(c).extension<ColorsExtension>()!.topGradient;
+    final Color topBar = Theme.of(c).extension<MainColorsExtension>()!.topGradient;
 
     return Scaffold(
       appBar: AppBar(
@@ -42,7 +42,7 @@ class LineupPage extends StatelessWidget {
 
   Widget _buildLineupWidget(BaseLineupProvider provider, BuildContext context, Color topBar) {
     return Container(
-      padding: EdgeInsets.only(bottom: MediaQuery.heightOf(context)*0.125),
+      padding: userLineup ? EdgeInsets.only(bottom: MediaQuery.heightOf(context)*0.08) : null,
       decoration: BoxDecoration(
         image: DecorationImage(
           image: AssetImage(Theme.of(context).extension<BackgroundsExtension>()!.lineupBackground),
@@ -55,7 +55,7 @@ class LineupPage extends StatelessWidget {
         children: [
           if (!userLineup)
             Container(
-              color: topBar.withAlpha(100),
+              color: topBar.withAlpha(255),
               padding: const EdgeInsets.all(4),
               child: Text(
                 "${provider.user.name}'s Lineup",

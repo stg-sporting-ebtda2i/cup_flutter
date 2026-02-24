@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:piehme_cup_flutter/constants/app_colors.dart';
 import 'package:piehme_cup_flutter/providers/attendance_provider.dart';
 import 'package:piehme_cup_flutter/states/empty_state.dart';
 import 'package:piehme_cup_flutter/states/loading_state.dart';
+import 'package:piehme_cup_flutter/themes/gradients_extension.dart';
+import 'package:piehme_cup_flutter/themes/main_colors_extension.dart';
+import 'package:piehme_cup_flutter/themes/states_colors_extension.dart';
 import 'package:piehme_cup_flutter/widgets/animated_list_item.dart';
 import 'package:piehme_cup_flutter/widgets/header.dart';
 import 'package:piehme_cup_flutter/widgets/requested_attendance_listitem.dart';
@@ -20,21 +22,29 @@ class RequestedAttendance extends StatefulWidget {
 class _RequestedAttendanceState extends State<RequestedAttendance> {
   @override
   Widget build(BuildContext context) {
+    final mainColor = Theme.of(
+      context,
+    ).extension<StatesColorsExtension>()!.mainColor;
+    final topGradient = Theme.of(
+      context,
+    ).extension<MainColorsExtension>()!.topGradient;
+    
     return Consumer<AttendanceProvider>(builder: (context, provider, child) {
       return Scaffold(
         appBar: AppBar(
-          backgroundColor: Colors.black,
+          backgroundColor: topGradient,
           toolbarHeight: 0,
           elevation: 0,
         ),
         floatingActionButton: Container(
+          margin: EdgeInsets.only(bottom: MediaQuery.heightOf(context)*0.08),
           width: 60,
           height: 60,
           decoration: BoxDecoration(
-            color: AppColors.brand.withAlpha(153),
+            color: mainColor.withAlpha(153),
             shape: BoxShape.circle,
             border: Border.all(
-              color: AppColors.brand.withAlpha(77),
+              color: mainColor.withAlpha(77),
               width: 1.5,
             ),
             boxShadow: [
@@ -64,12 +74,11 @@ class _RequestedAttendanceState extends State<RequestedAttendance> {
           ),
         ),
         body: Container(
-          decoration: const BoxDecoration(
-            gradient: LinearGradient(colors: [
-              Color(0xFF023D4D),
-              Color(0xFF34443C),
-              Color(0xFF230D19)
-            ], begin: Alignment.topRight, end: Alignment.bottomLeft),
+          padding: EdgeInsets.only(bottom: MediaQuery.heightOf(context)*0.08),
+          decoration: BoxDecoration(
+            gradient: LinearGradient(colors: Theme.of(
+              context,
+            ).extension<GradientsExtension>()!.attendanceList, begin: Alignment.topRight, end: Alignment.bottomLeft),
           ),
           child: Column(
             children: [
@@ -81,8 +90,7 @@ class _RequestedAttendanceState extends State<RequestedAttendance> {
                       begin: Alignment.topCenter,
                       end: Alignment.bottomCenter,
                       colors: [
-                        Colors.black87,
-                        Colors.black45,
+                        topGradient,
                         Colors.transparent,
                       ],
                     ),
@@ -112,7 +120,7 @@ class _RequestedAttendanceState extends State<RequestedAttendance> {
                       provider.requestedList.isEmpty) {
                     return _buildLoadingState();
                   }
-                  return _buildRequestedAttendanceList(provider);
+                  return _buildRequestedAttendanceList(provider, mainColor);
                 },
               ),
             ],
@@ -122,12 +130,12 @@ class _RequestedAttendanceState extends State<RequestedAttendance> {
     });
   }
 
-  Widget _buildRequestedAttendanceList(AttendanceProvider provider) {
+  Widget _buildRequestedAttendanceList(AttendanceProvider provider, Color mainColor) {
     return Expanded(
       child: RefreshIndicator(
         onRefresh: () => provider.loadRequestedAttendances(),
         color: Colors.black,
-        backgroundColor: AppColors.brand,
+        backgroundColor: mainColor,
         child: provider.requestedList.isEmpty
             ? CustomScrollView(
                 slivers: [

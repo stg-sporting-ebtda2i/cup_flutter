@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:piehme_cup_flutter/constants/app_colors.dart';
 import 'package:piehme_cup_flutter/providers/quizzes_provider.dart';
 import 'package:piehme_cup_flutter/states/empty_state.dart';
 import 'package:piehme_cup_flutter/states/loading_state.dart';
+import 'package:piehme_cup_flutter/themes/gradients_extension.dart';
+import 'package:piehme_cup_flutter/themes/main_colors_extension.dart';
+import 'package:piehme_cup_flutter/themes/states_colors_extension.dart';
 import 'package:piehme_cup_flutter/widgets/animated_list_item.dart';
 import 'package:piehme_cup_flutter/widgets/header.dart';
 import 'package:piehme_cup_flutter/widgets/quizzes_listitem.dart';
@@ -18,21 +20,33 @@ class ShowQuizzesPage extends StatefulWidget {
 class _ShowQuizzesPageState extends State<ShowQuizzesPage> {
   @override
   Widget build(BuildContext context) {
+    final mainColor = Theme.of(
+      context,
+    ).extension<StatesColorsExtension>()!.mainColor;
+    final topGradient = Theme.of(
+      context,
+    ).extension<MainColorsExtension>()!.topGradient;
+
     return Consumer<QuizzesProvider>(
       builder: (context, provider, child) {
         return Scaffold(
           appBar: AppBar(
-            backgroundColor: Colors.black,
+            backgroundColor: topGradient,
             toolbarHeight: 0,
             elevation: 0,
           ),
           body: Container(
-            decoration: const BoxDecoration(
-              gradient: LinearGradient(colors: [
-                Color(0xFF8A7C57),
-                Color(0xFF16393F),
-                Color(0xFF050514),
-              ], begin: Alignment.topRight, end: Alignment.bottomLeft),
+            padding: EdgeInsets.only(
+              bottom: MediaQuery.heightOf(context) * 0.125,
+            ),
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                colors: Theme.of(
+                  context,
+                ).extension<GradientsExtension>()!.quizzesList,
+                begin: Alignment.topRight,
+                end: Alignment.bottomLeft,
+              ),
             ),
             child: Column(
               children: [
@@ -44,8 +58,7 @@ class _ShowQuizzesPageState extends State<ShowQuizzesPage> {
                         begin: Alignment.topCenter,
                         end: Alignment.bottomCenter,
                         colors: [
-                          Colors.black87,
-                          Colors.black45,
+                          topGradient,
                           Colors.transparent,
                         ],
                       ),
@@ -79,13 +92,11 @@ class _ShowQuizzesPageState extends State<ShowQuizzesPage> {
                       return RefreshIndicator(
                         onRefresh: () => provider.loadQuizzes(),
                         color: Colors.black,
-                        backgroundColor: AppColors.brand,
+                        backgroundColor: mainColor,
                         child: provider.quizzes.isEmpty
                             ? CustomScrollView(
                                 slivers: [
-                                  SliverToBoxAdapter(
-                                    child: _buildEmptyState(),
-                                  )
+                                  SliverToBoxAdapter(child: _buildEmptyState()),
                                 ],
                               )
                             : ListView.builder(
@@ -94,8 +105,9 @@ class _ShowQuizzesPageState extends State<ShowQuizzesPage> {
                                 itemBuilder: (context, index) {
                                   final quiz = provider.quizzes[index];
                                   return AnimatedListItem(
-                                      index: index,
-                                      child: QuizListItem(quiz: quiz));
+                                    index: index,
+                                    child: QuizListItem(quiz: quiz),
+                                  );
                                 },
                               ),
                       );
@@ -112,15 +124,17 @@ class _ShowQuizzesPageState extends State<ShowQuizzesPage> {
 
   Widget _buildLoadingState() {
     return LoadingState(
-        iconData: Icons.quiz_rounded,
-        title: 'Loading Quizzes...',
-        subtitle: 'Getting your quizzes ready');
+      iconData: Icons.quiz_rounded,
+      title: 'Loading Quizzes...',
+      subtitle: 'Getting your quizzes ready',
+    );
   }
 
   Widget _buildEmptyState() {
     return EmptyState(
-        iconData: Icons.quiz_rounded,
-        title: 'No Quizzes Available',
-        subtitle: 'Check back later for new quizzes');
+      iconData: Icons.quiz_rounded,
+      title: 'No Quizzes Available',
+      subtitle: 'Check back later for new quizzes',
+    );
   }
 }
