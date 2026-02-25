@@ -87,7 +87,7 @@ class _QuizPageState extends State<QuizPage> {
         if (!provider.isLoadingQuiz && quiz.questions.isEmpty) {
           return _buildErrorState(topGradient, textColor, background);
         }
-        return _buildQuestionsState(provider, header, topGradient);
+        return _buildQuestionsState(provider, header, topGradient, background);
       },
     );
   }
@@ -96,6 +96,7 @@ class _QuizPageState extends State<QuizPage> {
     QuizzesProvider provider,
     HeaderProvider header,
     Color topGradient,
+    List<Color> background,
   ) {
     Quiz quiz = provider.currentQuiz;
 
@@ -108,9 +109,7 @@ class _QuizPageState extends State<QuizPage> {
       body: Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            colors: Theme.of(
-              context,
-            ).extension<GradientsExtension>()!.quizzesList,
+            colors: background,
             begin: Alignment.topRight,
             end: Alignment.bottomLeft,
           ),
@@ -271,11 +270,7 @@ class _QuizPageState extends State<QuizPage> {
                   gradient: LinearGradient(
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
-                    colors: [
-                      Colors.black.withAlpha(204),
-                      Colors.black.withAlpha(102),
-                      Colors.transparent,
-                    ],
+                    colors: [topGradient, Colors.transparent],
                   ),
                 ),
                 child: Row(

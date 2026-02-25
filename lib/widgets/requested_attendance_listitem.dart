@@ -31,7 +31,7 @@ class RequestedAttendanceListItem extends StatelessWidget {
           ),
           if (!isApproved)
             BoxShadow(
-              color: Colors.blue.withAlpha(51),
+              color: Colors.orange.withAlpha(51),
               blurRadius: 8,
               spreadRadius: 1,
             ),
