@@ -36,9 +36,6 @@ class _ShowQuizzesPageState extends State<ShowQuizzesPage> {
             elevation: 0,
           ),
           body: Container(
-            padding: EdgeInsets.only(
-              bottom: MediaQuery.heightOf(context) * 0.125,
-            ),
             decoration: BoxDecoration(
               gradient: LinearGradient(
                 colors: Theme.of(
@@ -100,7 +97,7 @@ class _ShowQuizzesPageState extends State<ShowQuizzesPage> {
                                 ],
                               )
                             : ListView.builder(
-                                padding: EdgeInsets.zero,
+                                padding: EdgeInsets.only(bottom: 70),
                                 itemCount: provider.quizzes.length,
                                 itemBuilder: (context, index) {
                                   final quiz = provider.quizzes[index];

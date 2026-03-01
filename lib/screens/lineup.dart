@@ -42,7 +42,6 @@ class LineupPage extends StatelessWidget {
 
   Widget _buildLineupWidget(BaseLineupProvider provider, BuildContext context, Color topBar) {
     return Container(
-      padding: userLineup ? EdgeInsets.only(bottom: MediaQuery.heightOf(context)*0.08) : null,
       decoration: BoxDecoration(
         image: DecorationImage(
           image: AssetImage(Theme.of(context).extension<BackgroundsExtension>()!.lineupBackground),
@@ -77,6 +76,8 @@ class LineupPage extends StatelessWidget {
               child: Lineup(userLineup: userLineup, provider: provider),
             ),
           ),
+          if (userLineup)
+            SizedBox(height: MediaQuery.heightOf(context)*0.08),
         ],
       ),
     );

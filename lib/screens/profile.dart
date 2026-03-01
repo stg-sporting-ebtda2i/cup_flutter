@@ -86,7 +86,6 @@ class _MoreOptionsPageState extends State<MoreOptionsPage> {
         elevation: 0,
       ),
       body: Container(
-        padding: EdgeInsets.only(bottom: MediaQuery.heightOf(context) * 0.08),
         decoration: BoxDecoration(
           image: DecorationImage(
             image: AssetImage(
@@ -464,6 +463,7 @@ class _MoreOptionsPageState extends State<MoreOptionsPage> {
                                     fontSize: 12,
                                   ),
                                 ),
+                                SizedBox(height: 50),
                               ],
                             ),
                           ),

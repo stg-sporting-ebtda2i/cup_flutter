@@ -22,7 +22,7 @@ Widget emptyIconPlaceholder(BuildContext context) {
 }
 
 Widget errorCardPlaceholder(BuildContext context) {
-  final pic = Theme.of(context).extension<PlaceholdersExtension>()!.emptyCardPlaceholder;
+  final pic = Theme.of(context).extension<PlaceholdersExtension>()!.errorPlaceholder;
   return Image(
     image: AssetImage(pic),
     fit: BoxFit.cover,
@@ -32,7 +32,7 @@ Widget errorCardPlaceholder(BuildContext context) {
 }
 
 Widget loadingCardPlaceholder(BuildContext context) {
-  final pic = Theme.of(context).extension<PlaceholdersExtension>()!.emptyCardPlaceholder;
+  final pic = Theme.of(context).extension<PlaceholdersExtension>()!.loadingPlaceholder;
   return Image(
     image: AssetImage(pic),
     fit: BoxFit.cover,

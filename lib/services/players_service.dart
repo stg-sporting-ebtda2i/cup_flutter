@@ -8,6 +8,7 @@ class PlayersService {
     final response = await Request.getFrom('/players/$position');
 
     final List<dynamic> jsonList = json.decode(response.body);
+    print(jsonList);
     List<Player> players = jsonList.map((json) => Player.fromJson(json)).toList();
     List<Player> ownedPlayers = await getLineup();
     Set<int> ownedPlayerIds = ownedPlayers.map((player) => player.id).toSet();

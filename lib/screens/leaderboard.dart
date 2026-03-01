@@ -33,9 +33,6 @@ class _LeaderboardState extends State<Leaderboard> {
             elevation: 0,
           ),
           body: Container(
-            padding: EdgeInsets.only(
-              bottom: MediaQuery.heightOf(context) * 0.08,
-            ),
             decoration: BoxDecoration(
               image: DecorationImage(
                 fit: BoxFit.cover,
@@ -109,7 +106,7 @@ class _LeaderboardState extends State<Leaderboard> {
                                 ],
                               )
                             : ListView.builder(
-                                padding: EdgeInsets.zero,
+                                padding: EdgeInsets.only(bottom: 70),
                                 itemCount: provider.leaderboard.length,
                                 itemBuilder: (context, index) {
                                   return AnimatedListItem(

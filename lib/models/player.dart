@@ -1,4 +1,3 @@
-import 'dart:convert';
 
 class Player {
   final int id;
@@ -33,7 +32,7 @@ class Player {
   factory Player.fromJson(Map<String, dynamic> json) {
     return Player(
       id: json['id'],
-      name: utf8.decode(json['name'].codeUnits),
+      name: json['name'],
       position: json['position'],
       rating: json['rating'],
       available: json['available'],

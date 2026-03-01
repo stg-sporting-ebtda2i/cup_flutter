@@ -74,7 +74,6 @@ class _RequestedAttendanceState extends State<RequestedAttendance> {
           ),
         ),
         body: Container(
-          padding: EdgeInsets.only(bottom: MediaQuery.heightOf(context)*0.08),
           decoration: BoxDecoration(
             gradient: LinearGradient(colors: Theme.of(
               context,
@@ -143,7 +142,7 @@ class _RequestedAttendanceState extends State<RequestedAttendance> {
                 ],
               )
             : ListView.builder(
-                padding: const EdgeInsets.symmetric(horizontal: 15),
+                padding: const EdgeInsets.only(left: 15, right: 15, bottom: 70),
                 itemCount: provider.requestedList.length,
                 itemBuilder: (context, index) {
                   return Container(

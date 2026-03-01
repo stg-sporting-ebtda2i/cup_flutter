@@ -20,6 +20,8 @@ class SplashScreenState extends State<SplashScreen> {
     String? token = await AuthService.getToken();
     bool isLoggedIn = token != null;
 
+    await Future.delayed(Duration(milliseconds: 700));
+
     if (mounted && isLoggedIn) {
       await DataUtils.initApp(context, AppRoutes.home);
     } else if (mounted) {
