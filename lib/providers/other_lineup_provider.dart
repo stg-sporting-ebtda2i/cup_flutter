@@ -2,7 +2,6 @@ import 'package:piehme_cup_flutter/dialogs/loading.dart';
 import 'package:piehme_cup_flutter/models/player.dart';
 import 'package:piehme_cup_flutter/models/user.dart';
 import 'package:piehme_cup_flutter/providers/base_lineup_provider.dart';
-import 'package:piehme_cup_flutter/services/leaderboard_service.dart';
 import 'package:piehme_cup_flutter/services/players_service.dart';
 import 'package:piehme_cup_flutter/services/users_service.dart';
 
@@ -36,17 +35,17 @@ class OtherLineupProvider extends BaseLineupProvider {
       _maxRating = 0;
 
       final results = await Future.wait([
-      LeaderboardService.getStats(),
+      // LeaderboardService.getStats(),
       PlayersService.getLineupById(userId),
       UsersService.getOtherUserIcon(userId)
       ]);
-      List<int> stats = results[0] as List<int>;
-      _lineup = results[1] as List<Player>;
-      _user = results[2] as User;
+      // List<int> stats = results[0] as List<int>;
+      _lineup = results[0] as List<Player>;
+      _user = results[1] as User;
 
       resetAddedCards();
-      _avgRating = stats[0];
-      _maxRating = stats[1];
+      // _avgRating = stats[0];
+      // _maxRating = stats[1];
       _lineupRating = _user.lineupRating.round();
       notifyListeners();
     }, message: 'Loading Lineup...', delay: Duration.zero);

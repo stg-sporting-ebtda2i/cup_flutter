@@ -89,8 +89,8 @@ class _UserCardState extends State<UserCard> {
               // Name Text
               Positioned(
                 top: cardHeight * (73 / 100),
-                left: cardWidth*0.1,
-                right: cardWidth*0.1,
+                left: cardWidth*0.12,
+                right: cardWidth*0.12,
                 child: Center(
                   child: Text(
                     widget.user.name,

@@ -104,9 +104,21 @@ class _LineupState extends State<Lineup> with SingleTickerProviderStateMixin, Wi
   void didChangeAppLifecycleState(AppLifecycleState state) {
     super.didChangeAppLifecycleState(state);
 
-    if (state == AppLifecycleState.resumed) {
+    // if (state == AppLifecycleState.resumed) {
       widget.provider.resetAddedCards();
-    }
+    // }
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    widget.provider.resetAddedCards();
+  }
+
+  @override
+  void didUpdateWidget(covariant Lineup oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    widget.provider.resetAddedCards();
   }
 
   @override
