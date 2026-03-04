@@ -355,7 +355,7 @@ class _MoreOptionsPageState extends State<MoreOptionsPage> {
                                 const SizedBox(height: 12),
                                 _buildAboutRow(
                                   icon: Icons.phone_android_rounded,
-                                  text: 'Version 3.1.0 • 2026',
+                                  text: 'Version 3.1.1 • 2026',
                                   mainColor: mainColor,
                                 ),
                               ],
