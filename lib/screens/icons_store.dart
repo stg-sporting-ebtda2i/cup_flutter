@@ -70,24 +70,30 @@ class _IconsStorePageState extends State<IconsStorePage> {
                         context: context,
                         action: () => IconsService.buyIcon(item.id),
                         callback: () async {
-                          await provider.loadStore();
-                          await lineupProvider.loadLineup(-1);
+                          await Future.wait([
+                            provider.loadStore(),
+                            lineupProvider.loadLineup(-1),
+                          ]);
                         }).confirmAction(),
                     sell: () => ActionUtils(
                         delay: 0,
                         context: context,
                         action: () => IconsService.sellIcon(item.id),
                         callback: () async {
-                          await provider.loadStore();
-                          await lineupProvider.loadLineup(-1);
+                          await Future.wait([
+                            provider.loadStore(),
+                            lineupProvider.loadLineup(-1),
+                          ]);
                         }).confirmAction(),
                     select: () => ActionUtils(
                         delay: 0,
                         context: context,
                         action: () => IconsService.selectIcon(item.id),
                         callback: () async {
-                          await provider.loadStore();
-                          await lineupProvider.loadLineup(-1);
+                          await Future.wait([
+                            provider.loadStore(),
+                            lineupProvider.loadLineup(-1),
+                          ]);
                         }).confirmAction(),
                   ),
                 );

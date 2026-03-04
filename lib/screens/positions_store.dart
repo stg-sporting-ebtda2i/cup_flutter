@@ -72,8 +72,10 @@ class _PositionsStorePageState extends State<PositionsStorePage> {
                           context: context,
                           action: () => PositionsService.buyPosition(item.id),
                           callback: () async {
-                            await provider.loadStore();
-                            await lineupProvider.loadLineup(-1);
+                            await Future.wait([
+                              provider.loadStore(),
+                              lineupProvider.loadLineup(-1),
+                            ]);
                           }
                       ).confirmAction(),
                       sell: () => ActionUtils(
@@ -81,8 +83,10 @@ class _PositionsStorePageState extends State<PositionsStorePage> {
                           context: context,
                           action: () => PositionsService.sellPosition(item.id),
                           callback: () async {
-                            await provider.loadStore();
-                            await lineupProvider.loadLineup(-1);
+                            await Future.wait([
+                              provider.loadStore(),
+                              lineupProvider.loadLineup(-1),
+                            ]);
                           }
                       ).confirmAction(),
                       select: () => ActionUtils(
@@ -90,8 +94,10 @@ class _PositionsStorePageState extends State<PositionsStorePage> {
                           context: context,
                           action: () => PositionsService.selectPosition(item.id),
                           callback: () async {
-                            await provider.loadStore();
-                            await lineupProvider.loadLineup(-1);
+                            await Future.wait([
+                              provider.loadStore(),
+                              lineupProvider.loadLineup(-1),
+                            ]);
                           }
                       ).confirmAction(),
                     ),
