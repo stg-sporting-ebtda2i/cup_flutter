@@ -89,12 +89,13 @@ class _UserCardState extends State<UserCard> {
               // Name Text
               Positioned(
                 top: cardHeight * (73 / 100),
-                left: 0,
-                right: 0,
+                left: cardWidth*0.1,
+                right: cardWidth*0.1,
                 child: Center(
                   child: Text(
                     widget.user.name,
                     style: TextStyle(
+                      overflow: TextOverflow.ellipsis,
                       fontSize: cardWidth * (9 / 100),
                       fontWeight: FontWeight.bold,
                       color: _color,
